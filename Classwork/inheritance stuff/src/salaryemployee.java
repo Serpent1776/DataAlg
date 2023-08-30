@@ -8,4 +8,7 @@ public class salaryemployee extends employee {
     public double pay() {
         return salary;
     }
+    public String toString() {
+        return super.toString() + "\n pay: " + salary; 
+    }
 }

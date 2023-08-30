@@ -14,4 +14,8 @@ public abstract class employee {
     }
 
     public abstract double pay();
+    
+    public String toString() {
+        return name + ", " + position;
+    }
 }

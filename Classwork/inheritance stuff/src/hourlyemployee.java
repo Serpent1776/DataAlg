@@ -17,4 +17,8 @@ public class hourlyemployee extends employee {
    public double pay() {
     return hours*rate;
    }
+   public String toString() {
+    return super.toString() + "\n pay: " + pay();
+   }
+   
 }
