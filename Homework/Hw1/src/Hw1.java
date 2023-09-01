@@ -53,21 +53,21 @@
                return block;
         }
         //b
-        public boolean makeAppointment(int period1, int period2, int minutes) {
+        public boolean makeAppointment(int startPeriod, int endPeriod, int duration) {
               //seeing if an appointment can be made
                boolean canItBeMade = false;
                int theBlock = 0; //for getting the block
-               int counter = period1; //for getting block's period
-               for(int i = period1; i <= period2; i++) { //for loop to find the free block in the period range
+               int counter = startPeriod; //for getting block's period
+               for(int i = startPeriod; i <= endPeriod; i++) { //for loop to find the free block in the period range
                   counter++;
-                  theBlock = findFreeBlock(i, minutes);
+                  theBlock = findFreeBlock(i, duration);
                if(theBlock != -1) {
                 canItBeMade = true;
                 break;
                }
                }
                if(canItBeMade) {
-                      reserveBlock(counter, minutes, theBlock);
+                      reserveBlock(counter, duration, theBlock);
                }
                return canItBeMade;
         }

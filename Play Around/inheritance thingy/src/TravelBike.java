@@ -1,7 +1,7 @@
 public class TravelBike extends Bike {
     private boolean somethingInBucket;
 
-    public TravelBike(wheels, frame, brakes, weight, somethingInBucket) {
+    public TravelBike(int wheels, String frame, int brakes, double weight, boolean somethingInBucket) {
         super(wheels, frame, brakes, weight);
         this.somethingInBucket = somethingInBucket;
     }
