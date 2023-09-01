@@ -1,0 +1,7 @@
+Question IV: Where superclassVar is a variable of a superclass that references an object whose type is a subclass, what is necessary for this statement to compile?
+
+During run time, will method methodName from the class that is the type of superclassVar always be invoked, or is it possible that a different method methodName will be invoked? Explain your answer.
+    
+    1. Nothing is necessary for superclassVar to compile since polymorphism allows for superclasses to use object of type subclass without any extra requirements. 
+    
+    2. During run time, it is possible for a different method from the method within the superclass because subclass’ methods can override a superclass’s methods with param override which pushes it over the method with that variable.
