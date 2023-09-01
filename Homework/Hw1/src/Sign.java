@@ -1,4 +1,4 @@
-public class Sign {
+public class Sign { //Ap question 2 for problem I.
     String message;
     int width;
 

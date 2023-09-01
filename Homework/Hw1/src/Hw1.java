@@ -1,7 +1,7 @@
     public class Hw1 {
        
         static public void main(String args[]) {
-         //main testing for question 2, making sure my program has the specifications.
+         //testing for AP question 2, making sure my program has the specifications. (Still a part of problem I.)
         String str; 
         int x;
         Sign sign1 = new Sign("ABC222DE", 3);
@@ -32,7 +32,7 @@
         str = sign5.getLines();
         System.out.println(str);       
         }
-        //Ap question number 1 below!
+        //Ap question number 1 below for problem I.
         //a
        public boolean isMinuteFree(int period, int minute) {
         //I show which minute is free 
