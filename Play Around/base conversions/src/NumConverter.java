@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 public class NumConverter {
-    public static void main(String[] args) { //controller
+    public static void main(String[] args) { //user interface
         Scanner user = new Scanner(System.in);
         boolean isBinary = false;
         boolean working = true;
