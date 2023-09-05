@@ -45,7 +45,7 @@
        }
  
         public int findFreeBlock(int period, int duration) {
-              //finds a free block
+              //finds the free first minute
                int freeMinute = -1; //the first free minute
                for(int i = 0; i < 60; i++) { //i goes from 0 to 59
                if(isMinuteFree(period, i)) {
