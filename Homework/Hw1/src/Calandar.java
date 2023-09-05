@@ -9,7 +9,7 @@ What operations can be performed on this data structure (identify at least three
 4. erase the writing on the calandar.
 5. check if today's date is a holiday.
 6. tell today's holiday.
-7. archive the caldandar. */
+*/
 //Interface for III.
 public interface Calandar {
     String display();
@@ -20,5 +20,4 @@ public interface Calandar {
     String eraseWriting(int date);
     boolean holidayCheck();
     String printholiday();
-    void archiveCalandar();
 }

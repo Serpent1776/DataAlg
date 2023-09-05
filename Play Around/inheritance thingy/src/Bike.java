@@ -20,6 +20,9 @@ public class Bike {
         this.brakes = brakes;
         this.weight = weight;
     }
+    public MountainBike getHardtail() {
+        return hardtail;
+    }
     public String toString() {
         if(travel != null && hardtail != null) {
         return wheels + frame + brakes + weight + "\n" + travel + "\n" + hardtail;

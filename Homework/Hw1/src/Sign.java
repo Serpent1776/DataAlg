@@ -7,7 +7,7 @@ public class Sign { //Ap question 2 for problem I.
        this.width = width;
     }
     public int numberOfLines() { //finds the number of lines in the sign, rounded
-         return Math.round(message.length()/((float)(width)));
+         return (int)(Math.ceil(message.length()/((width) + .0)));
     }
     public String getLines() { //prints where the line distinctions are, noted by a semicolon.
         if(message.length() == 0) {return null;} else {
@@ -21,7 +21,6 @@ public class Sign { //Ap question 2 for problem I.
                             parts[i] += ";";
                         } else {
                             parts[i] = message.substring(width*i, message.length());
-                            parts[i] += ";";
                         }
                 }
                 for(int i = 0; i < parts.length; i++) { //sums all the parts back up.

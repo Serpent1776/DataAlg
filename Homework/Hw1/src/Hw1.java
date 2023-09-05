@@ -6,6 +6,7 @@
         int x;
         Sign sign1 = new Sign("ABC222DE", 3);
         x = sign1.numberOfLines();
+        System.out.println();
         System.out.println(x);
         str = sign1.getLines();
         System.out.println(str);
@@ -13,21 +14,25 @@
         System.out.println(str);
         Sign sign2 = new Sign("ABCD", 10);
         x = sign2.numberOfLines();
+        System.out.println();
         System.out.println(x);
         str = sign2.getLines();
         System.out.println(str);
         Sign sign3 = new Sign("ABCDEF", 6);
         x = sign3.numberOfLines();
+        System.out.println();
         System.out.println(x);
         str = sign3.getLines();
         System.out.println(str);
         Sign sign4 = new Sign("", 4);
         x = sign4.numberOfLines();
+        System.out.println();
         System.out.println(x);
         str = sign4.getLines();
         System.out.println(str);
         Sign sign5 = new Sign("AB_CD_EF", 2);
         x = sign5.numberOfLines();
+        System.out.println();
         System.out.println(x);
         str = sign5.getLines();
         System.out.println(str);       
@@ -41,16 +46,14 @@
  
         public int findFreeBlock(int period, int duration) {
               //finds a free block
-               int block = -1;
-               int[] minutes = new int[60];
-               for(int i = 0; i < 60; i++) {minutes[i] = i;} //minute array made
-               for(int i = 0; i < minutes.length; i++) { //for loop to find free block
-               if(isMinuteFree(period, minutes[i])) {
-                    minutes[i] = block;
+               int freeMinute = -1; //the first free minute
+               for(int i = 0; i < 60; i++) { //i goes from 0 to 59
+               if(isMinuteFree(period, i)) {
+                     i = freeMinute;
                     break;
                }
               }
-               return block;
+               return freeMinute;
         }
         //b
         public boolean makeAppointment(int startPeriod, int endPeriod, int duration) {
