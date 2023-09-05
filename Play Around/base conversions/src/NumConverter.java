@@ -1,30 +1,21 @@
-import java.util.Scanner;
+//import java.util.Scanner;
 import java.util.ArrayList;
 public class NumConverter {
-    public static void main(String[] args) throws Exception {
-        Scanner a = new Scanner(System.in);
+    public static void main(String[] args) {
+        //System.out.println(numToBinary("12.25"));
+        //System.out.println(binaryToNum("1100.01"));
+        //System.out.println(numToBinary("3421"));
+        //System.out.println(binaryToNum("110101011101"));
+    }
+
+    public static String numToBinary(String a) {
         ArrayList<Integer> replay = new ArrayList<Integer>();
-        boolean isBinary = false;
         boolean powers[] = new boolean[64];
         double nums[] = new double[64];
         for(int i = 0; i < nums.length; i++) {
             nums[i] = Math.pow(2, i-(nums.length/2));
         }
-        System.out.print("number:");
-        String number = a.nextLine();
-        for(int i = 0; i < number.length(); i++) {
-            if(number.substring(i, i+1).equals(".") || Integer.parseInt(number.substring(i, i+1)) < 2) {
-                isBinary = true;
-            } else {
-                isBinary = false;
-                break;}
-        }
-            if(isBinary) {
-                System.out.print("Do you want this number to be interpreted as binary? Y or N?");
-                String descision = a.nextLine();
-                if(descision.equals("N")) {isBinary = false;}
-            }
-            if(!isBinary) {
+        String number = a;
                 double num = Double.parseDouble(number);
                 double restore = num;
                 double highestPower = 1;
@@ -73,11 +64,18 @@ public class NumConverter {
             }
             // uses the log(a)/log(b) = log_a(b) formula to set it up
             if(Math.floor(Double.parseDouble(number)) != Double.parseDouble(number)) {
-            System.out.print(binary.substring((powers.length/2) - 1 - (int)(Math.log(highestPower)/Math.log(2)), powers.length/2 + 1 - (int)(Math.log(lowestPower)/Math.log(2)))); 
+            return a + " is " + binary.substring((powers.length/2) - 1 - (int)(Math.log(highestPower)/Math.log(2)), powers.length/2 + 1 - (int)(Math.log(lowestPower)/Math.log(2))) + " in binary."; 
             } else {
-            System.out.print(binary.substring((powers.length/2) - 1 - (int)(Math.log(highestPower)/Math.log(2)), powers.length/2 - (int)(Math.log(lowestPower)/Math.log(2))));    
+            return a + " is " + binary.substring((powers.length/2) - 1 - (int)(Math.log(highestPower)/Math.log(2)), powers.length/2 - (int)(Math.log(lowestPower)/Math.log(2))) + " in binary.";    
             }
-        } else {
+        }
+
+        public static String binaryToNum (String number) {
+             boolean powers[] = new boolean[64];
+        double nums[] = new double[64];
+        for(int i = 0; i < nums.length; i++) {
+            nums[i] = Math.pow(2, i-(nums.length/2));
+        }
             int theDot = number.indexOf(".");
             if(theDot == -1) {
                 int positives = number.length()-1;
@@ -87,7 +85,7 @@ public class NumConverter {
                     sum += nums[(positives - i) + powers.length/2];
                 } 
                 }
-               System.out.print((int)(sum));
+               return number + " is " + (int)(sum) + " in base10.";
                 
             } else {
                 int positives = theDot - 1;
@@ -108,9 +106,10 @@ public class NumConverter {
                     sum += nums[powers.length/2 - (i-theDot)];
                 } 
                 }
-                System.out.print(sum);
+                String som = number + " is " + sum + " in base10.";
+                return som;
             }
         }
-    }
 }
+
 
