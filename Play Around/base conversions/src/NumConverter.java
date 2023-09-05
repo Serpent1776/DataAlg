@@ -1,12 +1,37 @@
-//import java.util.Scanner;
+import java.util.Scanner;
 import java.util.ArrayList;
 public class NumConverter {
-    public static void main(String[] args) {
-        //System.out.println(numToBinary("12.25"));
-        //System.out.println(binaryToNum("1100.01"));
-        //System.out.println(numToBinary("3421"));
-        //System.out.println(binaryToNum("110101011101"));
+    public static void main(String[] args) { //controller
+        Scanner user = new Scanner(System.in);
+        boolean isBinary = false;
+        boolean working = true;
+        while(working) {
+        System.out.print("Hi User, What number or binary are you sending to convert to the other type? \n (only send the number): ");
+        String number = user.nextLine();
+        for(int i = 0; i < number.length(); i++) {
+            if(number.substring(i, i+1).equals(".") || Integer.parseInt(number.substring(i, i+1)) < 2) {
+                isBinary = true;
+            } else {
+                isBinary = false;
+                break;
+            }
+        }
+        if(isBinary) {
+        System.out.print("User, do you want this number to be reffered as binary? Y or N? ");
+        if(user.nextLine().equals("Y")) {
+         System.out.println(binaryToNum(number));   
+        } else {
+         System.out.println(numToBinary(number));
+        }} else {
+         System.out.println(numToBinary(number));
+        
+        }
+        System.out.print("User, want to put in another number? Y or N? ");
+        if(user.nextLine().equals("N")) {
+            working = false;
+        }
     }
+}
 
     public static String numToBinary(String a) {
         ArrayList<Integer> replay = new ArrayList<Integer>();
