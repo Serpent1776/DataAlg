@@ -18,11 +18,11 @@ public class NumConverter {
         }
         if(isBinary) {
         System.out.print("User, do you want this number to be reffered as binary? Y or N? ");
-        if(user.nextLine().equals("Y")) {
-         System.out.println(binaryToNum(number));   
+        if(user.nextLine().equals("Y")) {System.out.println(binaryToNum(number));
         } else {
-         System.out.println(numToBinary(number));
-        }} else {
+            System.out.println(numToBinary(number));
+        }
+        } else {
          System.out.println(numToBinary(number));
         
         }
