@@ -3,13 +3,14 @@ import java.util.ArrayList;
 public class DSArrayList<E extends Comparable<E>> implements DSList<E>{
     private E[] array; // array that holds them
     private int size; // how many elements live in the array
+    @SuppressWarnings("unchecked")
     public DSArrayList() {
-        //@SuppressWarnings({"unchecked"});
+        
         this.array = (E[]) new Comparable[100];
         this.size = 0;
     }
+    @SuppressWarnings("unchecked")
     public DSArrayList(int capacity) {
-        //@SuppressWarnings({"unchecked"});
         this.array = (E[]) new Comparable[capacity];
         this.size = 0;
     }
@@ -52,6 +53,15 @@ public class DSArrayList<E extends Comparable<E>> implements DSList<E>{
         array[size] = element;
         size++;
         }
+    public void add(E[] elements) {
+        if(size + elements.length == array.length) {
+            expand();
+        }
+        for(int i = 0; i < elements.length; i++) {
+            array[size + i] = elements[i];
+        }
+        size += elements.length;
+    }
     public void add(E element, int postition) {
         if(postition < size) {
           if(size == array.length) {
@@ -119,6 +129,7 @@ public ArrayList<Integer> allIndices(E x) {
 /*clear - removes all elements from the list.
  *Worst case: O(1)
  */
+ @SuppressWarnings("unchecked")
 public void clear() {
   int len =  array.length;
   this.array = (E[]) new Comparable[len];
