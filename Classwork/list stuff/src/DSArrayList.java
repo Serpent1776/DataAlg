@@ -20,6 +20,15 @@ public class DSArrayList<E extends Comparable<E>> implements DSList<E>{
         }
         return null;
     }
+    public void remove(E x) {
+       int pos = postitionOf(x);
+       //array[pos] = null;
+       for(int i = pos; i < size-1; i++) {
+        array[i] = array[i+1];
+       }
+       array[size-1] = null;
+       size--;
+    }
     public boolean contains(E element) {
         for(int i = 0; i < size; i++) {
             if(array[i].equals(element)) {

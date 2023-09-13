@@ -37,5 +37,7 @@ public class App {
         System.out.println(Dominos);
         Dominos.addSorted(basement);
         System.out.println(Dominos);
+        Dominos.remove(eaten);
+        System.out.println(Dominos);
     }
 }
