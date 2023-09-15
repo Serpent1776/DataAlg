@@ -24,7 +24,7 @@ public class Driver {
         str.clear();
         System.out.println(str);
          */
-        DSArrayList<Pizza> Dominos = new DSArrayList<Pizza>();
+        DSArrayList<Pizza> Dominos = new DSArrayList<Pizza>(1);
         Pizza small = new Pizza(8, 6.0, true, true);
         Pizza frozenOne = new Pizza(8, 15.0, false, true);
         Pizza large = new Pizza(10,16.0,true, true);

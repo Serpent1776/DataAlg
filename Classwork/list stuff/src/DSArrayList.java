@@ -62,8 +62,9 @@ public class DSArrayList<E extends Comparable<E>> implements DSList<E>{
         size++;
         }
     public void add(E[] elements) {
-        if(size + elements.length == array.length) {
+        while(size + elements.length >= array.length) {
             expand();
+            
         }
         for(int i = 0; i < elements.length; i++) {
             array[size + i] = elements[i];
