@@ -39,7 +39,7 @@ public class Pizza implements Comparable<Pizza> {
         return equality;
     }
     public String toString() {
-        String str = "Slices: " + this.slices + " Size: " + this.size;
+        String str = "Slices: " + this.slices + ", Size: " + this.size;
         if(this.isHot) {str += ", It's hot and";} else {str += ", It's cold and";}
         if(this.isBoxed) {str += " boxed.";} else {str += " unboxed.";}
         return str;
