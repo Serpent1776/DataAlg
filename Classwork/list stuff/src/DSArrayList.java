@@ -151,6 +151,7 @@ public class DSArrayList<E extends Comparable<E>> implements DSList<E>{
  *Worst case: O(n)
  */
     public boolean equals(DSArrayList<E> otherList) {
+        if(otherList.size() != size) {return false;}
         for(int i = 0; i < size; i++) {
             if(!(array[i].equals(otherList.get(i)))) {
                 return false;
