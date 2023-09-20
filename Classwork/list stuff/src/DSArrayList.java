@@ -13,11 +13,11 @@ public class DSArrayList<E extends Comparable<E>> implements DSList<E>{
         this.array = (E[]) new Comparable[capacity];
         this.size = 0;
     }
-    public E get(int pos) {
+    public E get(int pos) throws DSListException {
         if(size > pos) {
         return array[pos];
         }
-        return null;
+        throw new DSListException("you can't get here, the position " + pos + "is too big");
     }
     public void remove(E x) {
        int pos = postitionOf(x);
@@ -71,8 +71,8 @@ public class DSArrayList<E extends Comparable<E>> implements DSList<E>{
         }
         size += elements.length;
     }
-    public void add(E element, int postition) {
-        if(postition < size) {
+    public void add(E element, int postition) throws DSListException {
+        if(postition < size && postition > -1) {
           if(size == array.length) {
                    expand();
           }
@@ -85,18 +85,18 @@ public class DSArrayList<E extends Comparable<E>> implements DSList<E>{
                 array[postition] = element;
             }
         } else {
-            System.out.print("you can't add here, the position is too big");
+            throw new DSListException("you can't add here, the position " + postition + " is too big.");
         }
         size++;
     }
     public int size() {
         return size;
     }
-    public void replace(E element, int postition) {
+    public void replace(E element, int postition) throws DSListException {
         if(postition < size && postition < array.length) {
             array[postition] = element;
         } else {
-            System.out.print("you can't replace here, the position is too big");   
+            throw new DSListException("you can't replace here, the position" + postition + "is too big");   
         }
     }
 /*addSorted - assuming the list is already sorted, add x into the appropriate spot in that list, 
@@ -113,8 +113,14 @@ public class DSArrayList<E extends Comparable<E>> implements DSList<E>{
                 break;
             }
         }
+            
+        
         if(addLocation != -1) {
+            try {
             add(x, addLocation);
+            } catch (DSListException e) {
+                e.printStackTrace();
+            }
         } else {
             add(x);
         }
@@ -152,10 +158,15 @@ public class DSArrayList<E extends Comparable<E>> implements DSList<E>{
  */
     public boolean equals(DSArrayList<E> otherList) {
         if(otherList.size() != size) {return false;}
+        try {
+            
         for(int i = 0; i < size; i++) {
             if(!(array[i].equals(otherList.get(i)))) {
                 return false;
             }
+        }
+        } catch (DSListException e) {
+            e.printStackTrace();
         }
         return true;
     }

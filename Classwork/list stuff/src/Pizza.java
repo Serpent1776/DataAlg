@@ -1,13 +1,21 @@
 public class Pizza implements Comparable<Pizza> {
     private int slices;
+    private Topping[] toppings;
     private double size;
     private boolean isHot;
     private boolean isBoxed;
-    public Pizza(int slices, double size, boolean isHot, boolean isBoxed) {
+    public Pizza(int slices, Topping[] toppings, double size, boolean isHot, boolean isBoxed) {
         this.slices = slices;
+        this.toppings = toppings;
         this.size = size;
         this.isHot = isHot;
         this.isBoxed = isBoxed;
+    }
+    public Topping[] getToppings() {
+        return toppings;
+    }
+    public void setToppings(Topping[] toppings) {
+        this.toppings = toppings;
     }
     public int getSlices() {
         return slices;

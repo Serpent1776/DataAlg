@@ -1,5 +1,6 @@
 public class Driver {
     public static void main(String[] args) throws Exception {
+        try {
         /* DSArrayList<String> str = new DSArrayList<String>();
         DSArrayList<String> str2 = str;
         DSArrayList<String> str3 = new DSArrayList<String>();
@@ -25,11 +26,20 @@ public class Driver {
         System.out.println(str);
          */
         DSArrayList<Pizza> Dominos = new DSArrayList<Pizza>(1);
-        Pizza small = new Pizza(8, 6.0, true, true);
-        Pizza frozenOne = new Pizza(8, 15.0, false, true);
-        Pizza large = new Pizza(10,16.0,true, true);
-        Pizza basement = new Pizza(10, 15.0, true, false);
-        Pizza eaten = new Pizza(0, 0, false, false);
+        Topping pepperoni = new Topping("pepperoni", 6);
+        Topping ham = new Topping("ham", 5);
+        Topping pineapple = new Topping("pineapple", 7);
+        Topping mushroom = new Topping("mushroom", 10);
+        Topping meatball = new Topping("meatball", 3);
+        Topping[] smol = {pepperoni};
+        Pizza small = new Pizza(8, smol, 6.0, true, true);
+        Topping[] frozen = {ham, pineapple};
+        Pizza frozenOne = new Pizza(8, frozen, 15.0, false, true);
+        Topping[] noToppings = {};
+        Pizza large = new Pizza(10, noToppings, 16.0,true, true);
+        Topping[]supreme = {pepperoni, mushroom, meatball, ham};
+        Pizza basement = new Pizza(10, supreme, 15.0, true, false);
+        Pizza eaten = new Pizza(0, noToppings, 0, false, false);
         Dominos.add(eaten);
         System.out.println(Dominos);
         Pizza[] pizzas = {small, frozenOne, large};
@@ -39,5 +49,8 @@ public class Driver {
         System.out.println(Dominos);
         Dominos.remove(eaten);
         System.out.println(Dominos);
+    } catch(Exception e) {
+        System.out.println(e);
+    }
     }
 }
