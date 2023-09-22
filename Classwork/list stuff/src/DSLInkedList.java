@@ -45,10 +45,19 @@ abstract class DSLinkedList<E extends Comparable<E>> implements DSList<E> {
      * @throws DSListException
      */
     public void add(E element) {
-
+       if(this.head_ptr == null) {
+        this.addtoFront(element);
+       }
+       Node<E> p1 = this.head_ptr;
+       while(p1.next != null) {
+        p1 = p1.next;
+       }
+       Node<E> box = new Node(element, null);
+       p1.next = box;
+       this.size++;
     }
     public void addtoFront(E element) {
-        Node<E> box = new Node(element, head_ptr);
+        Node<E> box = new Node<E>(element, head_ptr);
         Node<E> temp = this.head_ptr;
         this.head_ptr = box;
         box.next = temp;
