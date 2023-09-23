@@ -20,12 +20,10 @@ public class GuiDriver {
 
         //Creating the panel at bottom and adding components
         JPanel panel = new JPanel(); // the panel is not visible in output
-        JLabel label = new JLabel("Enter Text");
-        JTextField tf = new JTextField(100); // accepts upto 100 characters
+        //JLabel label = new JLabel("Enter Text");
         JButton send = new JButton("Send");
         JButton reset = new JButton("Reset");
-        panel.add(label); // Components Added using Flow Layout
-        panel.add(tf);
+        //panel.add(label); // Components Added using Flow Layout
         panel.add(send);
         panel.add(reset);
 
@@ -36,7 +34,6 @@ public class GuiDriver {
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
         frame.getContentPane().add(BorderLayout.NORTH, mb);
         frame.getContentPane().add(BorderLayout.CENTER, ta);
-        frame.setVisible(true);
         frame.setVisible(true);
     }
 }

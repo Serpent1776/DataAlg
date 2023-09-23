@@ -13,7 +13,7 @@ library = new DSArrayList<Book>();
 */
 public void addBook(String author, String title, double price) {
     Book newBook = new Book(author, title, price);
-    library.add(newBook);
+    library.addSorted(newBook);
 }
 /**
 * Gets all books currently in stock (more than 0 copies available)

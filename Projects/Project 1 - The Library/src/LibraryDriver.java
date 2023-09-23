@@ -1,5 +1,6 @@
+import DSListStuff.*;
 public class LibraryDriver {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
     /*
         The user should be to do the following
 
