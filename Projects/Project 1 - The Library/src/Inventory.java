@@ -11,13 +11,13 @@ public void addBook(String author, String title, double price);
 * Gets all books currently in stock (more than 0 copies available)
 * @return DSArrayList of Book objects representing those in stock
 */
-public DSArrayList<Book> getInStock();
+public DSArrayList<Book> getInStock() throws DSListException;
 /**
 * Gets all books recorded in inventory by a particular author
 * @param author - name of author requested
 * @return DSArrayList of Book objects by that author
 */
-public DSArrayList<Book> getAllByAuthor(String author);
+public DSArrayList<Book> getAllByAuthor(String author) throws DSListException;
 /**
 * Purchases copies of a book, adjusting the inventory as described in the
 assignment
@@ -30,7 +30,7 @@ public double purchase(String title, int quantity);
 * Returns all books that have sold the most copies
 * @return list of such books
 */
-public DSArrayList<Book> getBestSellers();
+public DSArrayList<Book> getBestSellers() throws DSListException;
 /**
 * Resets number of copies in inventory for all books to 3
 */

@@ -19,10 +19,13 @@ public void addBook(String author, String title, double price) {
 * Gets all books currently in stock (more than 0 copies available)
 * @return DSArrayList of Book objects representing those in stock
 */
-public DSArrayList<Book> getInStock() {
+public DSArrayList<Book> getInStock() throws DSListException {
     DSArrayList<Book> theStock = new DSArrayList<Book>(); 
     for(int i = 0; i < Library.size(); i++) {
         Book CurrentBook = Library.get(i);
+        if(CurrentBook.getCopies() > 0) {
+            TheStock.add(CurrentBook);
+        }
     }
     return theStock;
 }

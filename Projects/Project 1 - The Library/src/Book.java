@@ -27,6 +27,21 @@ public class Book implements Comparable<Book> {
         if(copies > 0) {
         this.copies = copies;
         }
+    } 
+    public String getAuthor() {
+        return author;
+    }
+    public String getTitle() {
+        return title;
+    }
+    public double getPrice() {
+        return price;
+    }
+    public int getCopies() {
+        return copies;
+    }
+    public int getCopiesSold() {
+        return copiesSold;
     }
     public void setCopiesSold(int copiesSold) {
         if(copies > 0) {
