@@ -1,3 +1,4 @@
+package DSListStuff;
 public interface DSList<E> {
     /*
      * get item from a certain spot

@@ -1,3 +1,4 @@
+package DSListStuff;
 import java.util.Arrays;
 import java.util.ArrayList;
 public class DSArrayList<E extends Comparable<E>> implements DSList<E>{

@@ -1,3 +1,4 @@
+package DSListStuff;
 abstract class DSLinkedList<E extends Comparable<E>> implements DSList<E> {
     private class Node<E> {
         public E data;

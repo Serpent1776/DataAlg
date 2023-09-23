@@ -1,3 +1,4 @@
+package DSListStuff;
 public class DSListException extends Exception{
     public DSListException() {
     super();
