@@ -6,7 +6,7 @@ public interface Inventory {
 * @param title - title of book to add
 * @param price - cost of book
 */
-public void addBook(String author, String title, double price);
+public void addBook(String author, String title, double price) throws LibraryException;
 /**
 * Gets all books currently in stock (more than 0 copies available)
 * @return DSArrayList of Book objects representing those in stock
@@ -25,7 +25,7 @@ assignment
 * @param quantity how many copies are requested
 * @return total amount paid for the book
 */
-public double purchase(String title, int quantity);
+public double purchase(String title, int quantity) throws DSListException, LibraryException;
 /**
 * Returns all books that have sold the most copies
 * @return list of such books
@@ -34,10 +34,10 @@ public DSArrayList<Book> getBestSellers() throws DSListException;
 /**
 * Resets number of copies in inventory for all books to 3
 */
-public void refresh();
+public void refresh() throws DSListException;
 /**
 * Returns current value of total amount paid for books
 * @return total revenue
 */
-public double getRevenue();
+public double getRevenue() throws DSListException, LibraryException;
 }
