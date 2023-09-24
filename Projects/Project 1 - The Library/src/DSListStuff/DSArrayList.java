@@ -73,6 +73,9 @@ public class DSArrayList<E extends Comparable<E>> implements DSList<E>{
         size += elements.length;
     }
     public void add(E element, int postition) throws DSListException {
+        if(size == 0) {
+            add(element);
+        }
         if(postition < size && postition > -1) {
           if(size == array.length) {
                    expand();
@@ -97,7 +100,7 @@ public class DSArrayList<E extends Comparable<E>> implements DSList<E>{
         if(postition < size && postition < array.length) {
             array[postition] = element;
         } else {
-            throw new DSListException("you can't replace here, the position" + postition + "is too big");   
+            throw new DSListException("you can't replace here, the position " + postition + " is too big");   
         }
     }
 /*addSorted - assuming the list is already sorted, add x into the appropriate spot in that list, 
@@ -191,14 +194,14 @@ Worst case - O(n)
         }
     }
     public String toString() {
-        String arrStr = "[";
+        String arrStr = "";
         for(int i = 0; i < size; i++) {
             if(i < size - 1) {
-                arrStr += this.array[i] + ", ";
+                arrStr += this.array[i] + "\n";
             } else {
                 arrStr += this.array[i];    
             }
         }
-        return arrStr + "]";
+        return arrStr;
     }
 }

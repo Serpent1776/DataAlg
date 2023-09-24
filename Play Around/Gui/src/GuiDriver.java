@@ -1,4 +1,5 @@
 import javax.swing.*;
+//import javax.swing.JButton;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -8,7 +9,6 @@ public class GuiDriver {
         JFrame frame = new JFrame("Chat Frame");
         frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         frame.setSize(400, 400);
-
         //Creating the MenuBar and adding components
         JMenuBar mb = new JMenuBar();
         JMenu m1 = new JMenu("FILE");

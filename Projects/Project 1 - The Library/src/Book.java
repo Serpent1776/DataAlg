@@ -8,7 +8,7 @@ public class Book implements Comparable<Book> {
     public Book(String author, String title, double price) {
         this.author = author;
         this.title = title;
-        this.price = price;
+        this.price = Math.floor(price*100)/100;
         this.copies = 3;
         this.copiesSold = 0;
     }
@@ -24,7 +24,7 @@ public class Book implements Comparable<Book> {
         }
     }
     public void setCopies(int copies) {
-        if(copies > 0) {
+        if(copies > -1) {
         this.copies = copies;
         }
     } 
@@ -35,7 +35,7 @@ public class Book implements Comparable<Book> {
         return title;
     }
     public double getPrice() {
-        return price;
+        return Math.floor(price*100)/100;
     }
     public int getCopies() {
         return copies;
@@ -44,7 +44,7 @@ public class Book implements Comparable<Book> {
         return copiesSold;
     }
     public void setCopiesSold(int copiesSold) {
-        if(copies > 0) {
+        if(copies > -1) {
         this.copiesSold = copiesSold;
         }
     }
@@ -52,10 +52,17 @@ public class Book implements Comparable<Book> {
         int authorComparison = this.author.compareTo(other.author);
         int titleComparison = this.title.compareTo(other.title);
         int priceComparison = (int)(Math.round(this.price - other.price));
-        int copiesComparison = (int)(Math.round(this.copies - other.copies));
-        int copiesSoldComparison = (int)(Math.round(this.copiesSold - other.copiesSold));
-        return authorComparison + titleComparison + priceComparison + copiesComparison + copiesSoldComparison;
+        return authorComparison + titleComparison + priceComparison;
         
+    }
+    public String toString() {
+        String o = ". It has " + copies + " copies";
+        if(copies == 0) {
+            o += " and this book is not currently in stock.";
+        } else {
+            o += ".";
+        }
+        return title + " by " + author + o + "\n\tCost: " + price + "\tCopies sold: " + copiesSold;
     }
 
 }
