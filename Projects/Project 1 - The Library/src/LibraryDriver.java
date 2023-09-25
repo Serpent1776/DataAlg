@@ -85,7 +85,7 @@ public class LibraryDriver {
             /*method activates when the "add a new book" button is pressed
              *it hides the window for protection and has the user make it via system.in interactions.
              */
-                public void actionPerformed(ActionEvent buttonPressed) {
+            public void actionPerformed(ActionEvent buttonPressed) {
                     window.setVisible(false);
                     addNewBook(user, theLibrary);
                     window.setVisible(true);
@@ -168,7 +168,7 @@ public class LibraryDriver {
             public void actionPerformed(ActionEvent buttonPressed) {
                 window.setVisible(false);
                 try {
-                System.out.println("Best Sellers:\n" + theLibrary.getBestSellers());
+                    System.out.println("Best Sellers:\n" + theLibrary.getBestSellers());
                 } catch (Exception except) {
                     System.out.println(except.getMessage());
                 }
@@ -182,7 +182,7 @@ public class LibraryDriver {
                 public void actionPerformed(ActionEvent buttonPressed) {
                     window.setVisible(false);
                 try {
-                theLibrary.refresh();
+                    theLibrary.refresh();
                 } catch (Exception except) {
                     System.out.println(except.getMessage());
                 }
