@@ -55,7 +55,7 @@ public class LibraryDriver {
     public static void main(String[] args) {
         Library theLibrary = new Library();
         Window theWindow = new Window();
-        startup(theLibrary); //for testing the program. 
+        //startup(theLibrary); //for testing the program. 
         Scanner user = new Scanner(System.in);
         JFrame window = theWindow.getWindow(); //makes the display frame
         window.addWindowListener(new WindowAdapter() { 
