@@ -54,9 +54,10 @@ public class LibraryDriver {
     */
     public static void main(String[] args) {
         Library theLibrary = new Library();
+        Window theWindow = new Window();
         startup(theLibrary); //for testing the program. 
         Scanner user = new Scanner(System.in);
-        JFrame window = theFrame(); //makes the display frame
+        JFrame window = theWindow.getWindow(); //makes the display frame
         window.addWindowListener(new WindowAdapter() { 
             //end of program runs when the x is clicked.
             @Override
@@ -65,7 +66,7 @@ public class LibraryDriver {
                 System.exit(0);
             }
         });
-        JPanel buttonPanel = new JPanel();
+        JPanel buttonPanel = theWindow.getPanel();
         JButton addBook = new JButton("add a new book");
         JButton listAllInStock = new JButton("list all books in stock");
         JButton listAllByAuthor = new JButton("list all books by a certain author");
@@ -113,7 +114,6 @@ public class LibraryDriver {
                 String author = getAuthor(user);
                 try {
                 System.out.println("Books by " + author + ":\n" + theLibrary.getAllByAuthor(author));
-                user.nextLine();
                 } catch (Exception except) {
                     System.out.println(except.getMessage());
                 }
@@ -191,16 +191,6 @@ public class LibraryDriver {
             }
         });
     }
-    /*
-     * void
-     * Makes and returns the gui.
-     */
-    public static JFrame theFrame() {
-        JFrame frame = new JFrame("Library Operations");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        frame.setSize(400, 150);
-        return frame;
-}
     /*
      * @param Scanner
      * @param Library
