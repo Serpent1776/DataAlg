@@ -17,8 +17,8 @@ public class LibraryDriver {
             Print (in a neatly formatted way) 
             all the books in the inventory that are in stock with all of their associated information. 
             The program should print the message “No books in the inventory” 
-            if there are (duh!) no books in the inventory, or “No books in stock” 
-            if there are (double duh!) no books in stock.
+            if there are (duh!) no books in the inventory,
+            or “No books in stock” if there are (double duh!) no books in stock.
 
        3. List all the books by a particular author – 
             The user should be prompted for the author’s name. 
