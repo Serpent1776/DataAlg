@@ -141,7 +141,7 @@ public class LibraryDriver {
                     } 
                 } else {
                     window.setVisible(true);
-                    System.out.println("The book does not exist in this library!");
+                    System.out.println(title + " isn't in this library!");
                     return;
                     }
                 int quantity = getQuantity(user); 
@@ -168,7 +168,7 @@ public class LibraryDriver {
             public void actionPerformed(ActionEvent buttonPressed) {
                 window.setVisible(false);
                 try {
-                System.out.print("Best Sellers:\n" + theLibrary.getBestSellers());
+                System.out.println("Best Sellers:\n" + theLibrary.getBestSellers());
                 } catch (Exception except) {
                     System.out.println(except.getMessage());
                 }
@@ -246,7 +246,7 @@ public class LibraryDriver {
      */
     public static void closing(Library library) {
         try {
-        System.out.println("$" + Math.floor(library.getRevenue()*100)/100 + " was produced during this program's operation!");
+        System.out.println("$" + Math.floor(library.getRevenue()*100)/100 + " in total revenue was produced during this program's execution!");
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

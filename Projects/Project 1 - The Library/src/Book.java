@@ -48,6 +48,7 @@ public class Book implements Comparable<Book> {
         this.copiesSold = copiesSold;
         }
     }
+    //Comparing function for books
     public int compareTo(Book other) {
         int authorComparison = this.author.compareTo(other.author);
         int titleComparison = this.title.compareTo(other.title);
@@ -55,6 +56,7 @@ public class Book implements Comparable<Book> {
         return authorComparison + titleComparison + priceComparison;
         
     }
+    //the toString, also does a check for the book.
     public String toString() {
         String o = ". It has " + copies + " copies";
         if(copies == 0) {
