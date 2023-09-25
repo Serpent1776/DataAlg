@@ -3,11 +3,13 @@ public class Library implements Inventory {
 DSArrayList<Book> library;
 DSArrayList<String> authors;
 DSArrayList<String> titles;
+double sum;
 public Library() {
 
 this.library = new DSArrayList<Book>();
 this.authors = new DSArrayList<String>();
 this.titles = new DSArrayList<String>();
+this.sum = 0;
 }
 /**
 * Adds a new book to inventory with 3 copies
@@ -92,6 +94,7 @@ public double purchase(String title, int quantity) throws DSListException, Libra
     }
     sellingBook.setCopies(sellingBook.getCopies() - quantity); //decrement of copies
     sellingBook.setCopiesSold(sellingBook.getCopiesSold() + quantity); //increment of copies sold
+    sum += quantity*sellingBook.getPrice();
     return quantity*sellingBook.getPrice();
 }
 /**
@@ -129,17 +132,11 @@ public void refresh() throws DSListException, LibraryException {
 /**
 * Returns current value of total amount paid for books
 * @return total revenue
-* @time O(n) time, LibraryException case 1: O(1) time
+* @time O(1) time
 */
 public double getRevenue() throws DSListException, LibraryException {
     if(library.size() == 0) {throw new LibraryException("Zero total revenue was produced during the execution of this program.");}
-    double sum = 0.0;
-    for(int i = 0; i < library.size() ;i++) {
-        Book summedBook = library.get(i);
-        sum += summedBook.getPrice()*summedBook.getCopiesSold();
-    }
-    if(sum == 0.0) {throw new LibraryException("Zero total revenue was produced during the execution of this program.");}
-    return sum;
+    return this.sum;
 }
 public DSArrayList<Book> getLibrary() {
     return library;
