@@ -1,4 +1,4 @@
-import DSListStuff.DSArrayList;
+import DSListStuff.*;
 public class Driver {
     public static void main(String[] args) throws Exception {
         try {
@@ -41,7 +41,7 @@ public class Driver {
         Topping[]supreme = {pepperoni, mushroom, meatball, ham};
         Pizza basement = new Pizza(10, supreme, 15.0, true, false);
         Pizza eaten = new Pizza(0, noToppings, 0, false, false);
-        Dominos.add(eaten);
+        /*Dominos.add(eaten);
         System.out.println(Dominos);
         Pizza[] pizzas = {small, frozenOne, large};
         Dominos.add(pizzas);
@@ -49,7 +49,25 @@ public class Driver {
         Dominos.addSorted(basement);
         System.out.println(Dominos);
         Dominos.remove(eaten);
-        System.out.println(Dominos);
+        System.out.println(Dominos);*/
+        DSLinkedList<Integer> PizzaHut = new DSLinkedList<Integer>();
+        //  rotating 'r','u','t','a','b','a','g','a' gives the list 'u', 't', 'a', 'b', 'a', 'g', 'a', 'r'. 
+        PizzaHut.addtoFront(5);
+        PizzaHut.addtoFront(4);
+        PizzaHut.addtoFront(5);
+        PizzaHut.addtoFront(2);
+        PizzaHut.addtoFront(1);
+        PizzaHut.addSorted(0);
+        DSLinkedList<Integer> PizzaHut2 = new DSLinkedList<Integer>();
+        //  rotating 'r','u','t','a','b','a','g','a' gives the list 'u', 't', 'a', 'b', 'a', 'g', 'a', 'r'. 
+        /*PizzaHut2.addtoFront(5);
+        PizzaHut2.addtoFront(4);
+        PizzaHut2.addtoFront(5);
+        PizzaHut2.addtoFront(2);
+        PizzaHut2.addtoFront(1);
+        PizzaHut2.addSorted(100);*/
+        PizzaHut.rotate();
+        System.out.println(PizzaHut);
     } catch(Exception e) {
         System.out.println(e);
     }
