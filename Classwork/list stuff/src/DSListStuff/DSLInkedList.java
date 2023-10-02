@@ -114,6 +114,22 @@ public class DSLinkedList<E extends Comparable<E>> implements DSList<E> {
         size++;
         
     }
+     public void remove(int postition) throws DSListException {
+         if(postition == 0) {
+            this.head_ptr = this.head_ptr.next;
+            this.size--;
+       } 
+        if(postition < 0 || postition > size) {
+            throw new DSListException("that position cannot be reached!");
+        }
+        Node<E> p1 = this.head_ptr;
+        for(int i = 0; i < postition - 1; i++) {
+            p1 = p1.next;
+            p1.next = p1.next.next;
+        }
+        this.size--;
+    }
+        
      /*
      * gives the number of elements in it
      * @returns that amount as an int
