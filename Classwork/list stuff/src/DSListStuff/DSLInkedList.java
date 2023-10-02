@@ -13,6 +13,7 @@ public class DSLinkedList<E extends Comparable<E>> implements DSList<E> {
   }
     private int size;
     private Node<E> head_ptr;
+    private Node<E> last_ptr;
     /*
      * get item from a certain spot
      * @param  postition - the spot
@@ -22,9 +23,10 @@ public class DSLinkedList<E extends Comparable<E>> implements DSList<E> {
     public DSLinkedList() {
         this.size = 0;
         this.head_ptr = null;
+        this.last_ptr = null;
     }
     public E get(int pos) throws DSListException {
-        if(pos < 0 || pos > size) {
+        if(pos < 0 || pos > this.size) {
             throw new DSListException("that position cannot be gotten!");
         }
         Node<E> p1 = this.head_ptr;
@@ -82,12 +84,8 @@ public class DSLinkedList<E extends Comparable<E>> implements DSList<E> {
        if(this.head_ptr == null) {
             this.addtoFront(element);
        } else {
-            Node<E> p1 = this.head_ptr;
-            while(p1.next != null) {
-                p1 = p1.next;
-       }
             Node<E> box = new Node<E>(element, null);
-            p1.next = box;
+            this.last_ptr = box;
             this.size++;
     }
     }
@@ -97,13 +95,22 @@ public class DSLinkedList<E extends Comparable<E>> implements DSList<E> {
         this.head_ptr = box;
         box.next = temp;
         this.size++;
+        if(this.size == 1) {
+            this.last_ptr = box;
+        }
     }
     public void add(E element, int postition) throws DSListException {
          if(this.head_ptr == null) {
             this.addtoFront(element);
        }
-        if(postition < 0 || postition > size) {
+        if(postition < 0 || postition > this.size) {
             throw new DSListException("that position cannot be reached!");
+        }
+        if(postition == 0) {
+            this.addtoFront(element);
+        }
+        if(postition == this.size) {
+            this.add(element);
         }
         Node<E> p1 = this.head_ptr;
         for(int i = 0; i < postition - 1; i++) {
@@ -111,15 +118,16 @@ public class DSLinkedList<E extends Comparable<E>> implements DSList<E> {
         }
         Node<E> box = new Node<E>(element, p1.next);
         p1.next = box;
-        size++;
+        this.size++;
         
     }
      public void remove(int postition) throws DSListException {
          if(postition == 0) {
             this.head_ptr = this.head_ptr.next;
             this.size--;
+            if(this.head_ptr == null) {this.last_ptr = null;}
        } 
-        if(postition < 0 || postition > size) {
+        if(postition < 0 || postition > this.size) {
             throw new DSListException("that position cannot be reached!");
         }
         Node<E> p1 = this.head_ptr;
@@ -136,7 +144,7 @@ public class DSLinkedList<E extends Comparable<E>> implements DSList<E> {
      * @throws DSListException
      */
     public int size() {
-        return size;
+        return this.size;
     }
      /*
      * replaces an element
@@ -145,7 +153,7 @@ public class DSLinkedList<E extends Comparable<E>> implements DSList<E> {
      * @throws DSListException
      */
     public void replace(E element, int postition) throws DSListException {
-        if(postition < 0 || postition > size) {
+        if(postition < 0 || postition > this.size) {
             throw new DSListException("that position cannot be reached!");
         }
         Node<E> p1 = this.head_ptr;
@@ -241,16 +249,20 @@ public class DSLinkedList<E extends Comparable<E>> implements DSList<E> {
         shifting elements as appropriate. You may assume the list will have at least one element. 
         For example, 
         rotating 'r','u','t','a','b','a','g','a' gives the list 'u', 't', 'a', 'b', 'a', 'g', 'a', 'r'. 
-        Time: O(n)
+        Time: O(n)/O(1)
         */
         public void rotate() {
-            Node<E> p1 = this.head_ptr;
-        while(p1.next.next != null) { 
-            E temp = p1.next.data;
+            //Node<E> p1 = this.head_ptr;
+        //while(p1.next != null) { 
+            /*E temp = p1.next.data;
             p1.next.data = p1.data; 
             p1.data = temp;
-            p1 = p1.next;
-            }
+            p1 = p1.next;/* */
+            Node<E> box = new Node<E>(this.head_ptr.data, null);
+            this.last_ptr.next = box;
+            this.last_ptr = box;
+            this.head_ptr = this.head_ptr.next;
+            //}
          }
         public String toString() {
             String o = "";

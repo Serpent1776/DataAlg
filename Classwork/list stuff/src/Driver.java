@@ -26,7 +26,7 @@ public class Driver {
         str.clear();
         System.out.println(str);
          */
-        DSArrayList<Pizza> Dominos = new DSArrayList<Pizza>(1);
+        /*DSArrayList<Pizza> Dominos = new DSArrayList<Pizza>(1);
         Topping pepperoni = new Topping("pepperoni", 6);
         Topping ham = new Topping("ham", 5);
         Topping pineapple = new Topping("pineapple", 7);
@@ -41,7 +41,7 @@ public class Driver {
         Topping[]supreme = {pepperoni, mushroom, meatball, ham};
         Pizza basement = new Pizza(10, supreme, 15.0, true, false);
         Pizza eaten = new Pizza(0, noToppings, 0, false, false);
-        /*Dominos.add(eaten);
+        Dominos.add(eaten);
         System.out.println(Dominos);
         Pizza[] pizzas = {small, frozenOne, large};
         Dominos.add(pizzas);
@@ -58,6 +58,7 @@ public class Driver {
         PizzaHut.addtoFront(2);
         PizzaHut.addtoFront(1);
         PizzaHut.addSorted(0);
+        System.out.println(PizzaHut);
         DSLinkedList<Integer> PizzaHut2 = new DSLinkedList<Integer>();
         //  rotating 'r','u','t','a','b','a','g','a' gives the list 'u', 't', 'a', 'b', 'a', 'g', 'a', 'r'. 
         /*PizzaHut2.addtoFront(5);
@@ -67,6 +68,7 @@ public class Driver {
         PizzaHut2.addtoFront(1);
         PizzaHut2.addSorted(100);*/
         PizzaHut.rotate();
+        //PizzaHut.remove(0);
         System.out.println(PizzaHut);
     } catch(Exception e) {
         System.out.println(e);
