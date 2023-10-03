@@ -85,6 +85,7 @@ public class DSLinkedList<E extends Comparable<E>> implements DSList<E> {
             this.addtoFront(element);
        } else {
             Node<E> box = new Node<E>(element, null);
+            this.last_ptr.next = box;
             this.last_ptr = box;
             this.size++;
     }
@@ -264,6 +265,55 @@ public class DSLinkedList<E extends Comparable<E>> implements DSList<E> {
             this.head_ptr = this.head_ptr.next;
             //}
          }
+         /*public E getMode() throws DSListException. 
+It should return the element that appears most often in the list. 
+For example, if the list were [6, 5, 1, 5, 2, 3, 1, 5, 4], 
+it would return 5 since there are 3 5s in the list, 2 1s, and every other element appears just once. 
+If there is a tie for mode, you could return any one of the tied elements. 
+For example, with [6, 5, 1, 5, 2, 3, 1, 5, 1], you could return either 5 or 1. 
+If the list is empty, throw an exception.  
+Time: O(n^2)*/
+    public E getMode() throws DSListException {
+        if(size == 0) {throw new DSListException("This function cannot be done on empty lists!");}
+        boolean endItAll = false;
+        E mode = this.head_ptr.data;
+        Node<E> p1 = this.head_ptr;
+        int[] counters = new int[this.size];
+        int pos = 0;
+            while(p1 != null) {
+                E x = p1.data;
+                Node<E> p2 = this.head_ptr;
+                    while(p2 != null) {
+                        if(p2.data.equals(x)) {
+                            counters[pos]++;
+                        }
+                     p2 = p2.next;
+                    }
+                for(int l = 0; l < size; l++) {
+                    if(counters[l] > this.size/2) {
+                        endItAll = true;
+                        break;
+                    }
+                }
+                if(endItAll) {break;}
+            //System.out.println(counters); this line is just for debugging    
+         pos++;
+         p1 = p1.next;
+        }
+        int greatest = counters[0];
+        Node<E> p3 = this.head_ptr;
+        pos = 0;
+        while(p3 != null) {
+            if(counters[pos] > greatest) {
+                greatest = counters[pos];
+                mode = p3.data;
+            }
+            pos++;
+            p3 = p3.next;
+        }
+        return mode;
+    }
+
         public String toString() {
             String o = "";
             Node<E> p1 = this.head_ptr;

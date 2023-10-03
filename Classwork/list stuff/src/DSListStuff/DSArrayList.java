@@ -190,6 +190,54 @@ Worst case - O(n)
         }
         }
     }
+/*public E getMode() throws DSListException. 
+It should return the element that appears most often in the list. 
+For example, if the list were [6, 5, 1, 5, 2, 3, 1, 5, 4], 
+it would return 5 since there are 3 5s in the list, 2 1s, and every other element appears just once. 
+If there is a tie for mode, you could return any one of the tied elements. 
+For example, with [6, 5, 1, 5, 2, 3, 1, 5, 1], you could return either 5 or 1. 
+If the list is empty, throw an exception.  
+Time: O(n^2)*/
+    public E getMode() throws DSListException {
+        if(size == 0) {throw new DSListException("This function cannot be done on empty lists!");}
+        boolean endItAll = false;
+        E mode = this.array[0];
+        int[] counters = new int[this.size];
+            for(int i = 0; i < size; i++) {
+                boolean notDupe = true;
+                E x = this.array[i];
+                for(int d = i-1; d > 0; d--) {
+                    if(this.array[d].equals(x)) {
+                        
+                        notDupe = false;
+                    }
+                }
+                if(notDupe) {
+                    for(int u = 0; u < size; u++) {
+                        if(this.array[u].equals(x)) {
+                            counters[i]++;
+                        }
+                    }
+                }
+                for(int l = 0; l < size; l++) {
+                    if(counters[l] > this.size/2) {
+                        endItAll = true;
+                        break;
+                    }
+                }
+                if(endItAll) {break;}
+            //System.out.println(counters); this line is just for debugging 
+        }
+        int greatest = counters[0];
+        for(int i = 0; i < size; i++) {
+            if(counters[i] > greatest) {
+                greatest = counters[i];
+                mode = this.array[i];
+            }
+        }
+        return mode;
+    }
+
     public String toString() {
         String arrStr = "[";
         for(int i = 0; i < size; i++) {
