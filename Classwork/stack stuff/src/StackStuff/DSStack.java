@@ -19,7 +19,7 @@ public interface DSStack<E> {
      */
     public E peek() throws DSStackException;
     /*
-     * @returns boolean
+     * @returns is the stack empty
      */
     public boolean isEmpty();
     
