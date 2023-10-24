@@ -42,4 +42,44 @@ public class LinkedQueue<E> {
   public boolean isEmpty() {
     return size == 0;
   }
+  //enqueue & dequeue
+  public void moveToRear() throws DSQueueException {
+    try {
+    enQueue(this.deQueue());
+  } catch (Exception e) {
+      throw new DSQueueException(e.getMessage());
+    } 
+  }
+  //work with nodes directly
+  public void moveToRear2() {
+    Node<E> f1 = front;
+    while(f1.next != null) { //This is rotate pretty much?
+      E temp = f1.next.data;
+      f1.next.data = f1.data;
+      f1.data = temp;
+      f1 = f1.next;
+    }
+  }
+  //enqueue & dequeue
+  public void moveToFront() throws DSQueueException {
+     try {
+    for(int i = 0; i < size-1; i++) {
+    enQueue(this.deQueue());
+    }
+  } catch (Exception e) {
+      throw new DSQueueException(e.getMessage());
+    } 
+  }
+  public String toString() {
+    String o = "";
+    Node<E> p1 = this.front;
+    int nodeNum = 1;
+    while(p1 != null) {
+        o += "Node " + nodeNum + ":\n";
+        o += p1.data + "\n";
+        p1 = p1.next;
+        nodeNum++;
+    }
+    return o;
+  }
 }

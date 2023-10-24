@@ -28,6 +28,12 @@ public class DSLinkedStack<E> implements DSStack<E>{
         if(size == 0) {throw new DSStackException("Stack is empty");}
         return this.head_ptr.data;
     }
+    public E peekNextToTop() throws DSStackException {
+        if(size == 0) {throw new DSStackException("Stack is empty");}
+        if(size == 1) {return null;}
+        return this.head_ptr.next.data;
+
+    }
     public boolean isEmpty() {
         return size == 0;
     }

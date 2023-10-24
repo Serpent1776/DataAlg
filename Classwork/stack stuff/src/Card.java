@@ -2,7 +2,7 @@ public class Card {
     String desc;
     String title;
     boolean isDrawn;
-    public Card(String desc, boolean isDrawn) {
+    public Card(String desc, String title, boolean isDrawn) {
         this.desc = desc;
         this.title = title;
         this.isDrawn = isDrawn;
