@@ -1,0 +1,5 @@
+pg 207 number 8
+the final contents of:
+char x is '+' (because the remove method had a NoSuchElementexception & didn't return any data to x)
+boolean success is false (because the remove method had a NoSuchElementexception)
+queue q is empty (because the uses of the remove method got rid of everything in it.) 

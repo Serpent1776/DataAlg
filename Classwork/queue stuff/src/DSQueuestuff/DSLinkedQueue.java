@@ -1,6 +1,6 @@
 package DSQueuestuff;
 
-public class LinkedQueue<E> {
+public class DSLinkedQueue<E> implements DSQueue<E> {
     private class Node<E> {
         private E data;
         private Node<E> next;
@@ -12,12 +12,12 @@ public class LinkedQueue<E> {
     private Node<E> front;
     private Node<E> back;
     private int size;
-    public LinkedQueue() {
+    public DSLinkedQueue() {
         front = null;
         back = null;
         size = 0;
     }
-  public void enQueue(E data) {
+  public void enqueue(E data) {
     Node<E> newNode = new Node<E>(data, null);
     if(front == null) {
       front = newNode;
@@ -28,7 +28,7 @@ public class LinkedQueue<E> {
     }
     size++;
   }
-  public E deQueue() throws DSQueueException {
+  public E dequeue() throws DSQueueException {
     if(size == 0) {throw new DSQueueException("the list is empty");}
     E ref = front.data;
     front = front.next;
@@ -45,7 +45,7 @@ public class LinkedQueue<E> {
   //enqueue & dequeue
   public void moveToRear() throws DSQueueException {
     try {
-    enQueue(this.deQueue());
+    enqueue(this.dequeue());
   } catch (Exception e) {
       throw new DSQueueException(e.getMessage());
     } 
@@ -64,7 +64,7 @@ public class LinkedQueue<E> {
   public void moveToFront() throws DSQueueException {
      try {
     for(int i = 0; i < size-1; i++) {
-    enQueue(this.deQueue());
+    enqueue(this.dequeue());
     }
   } catch (Exception e) {
       throw new DSQueueException(e.getMessage());
