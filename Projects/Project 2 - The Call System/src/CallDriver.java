@@ -63,7 +63,7 @@ public class CallDriver {
         });  
         yes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent buttonPressed) {
-             delete(regular); 
+             deleteLastCall(regular); 
              confirm.setVisible(false);
              window.setVisible(true);
             }
@@ -106,7 +106,7 @@ public class CallDriver {
     -If so, remove the most recent call from memory. 
     -This should give an error message and not prompt for confirmation if there are no numbers in memory. 
     */
-    public static void delete(CallMachine calls) {
+    public static void deleteLastCall(CallMachine calls) {
        calls.removeCall();
     }
     /* 
