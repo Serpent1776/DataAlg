@@ -9,7 +9,7 @@ public class QueueDriver {
         sus.enqueue(1);
         sus.enqueue(2);
         System.out.println(sus);
-        sus.moveToFront();
+        sus.moveToRear2();
         System.out.println(sus);
         } catch(Exception e) {
             System.out.print(e.getMessage());

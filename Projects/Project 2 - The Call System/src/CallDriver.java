@@ -19,23 +19,45 @@ public class CallDriver {
         JPanel panel = callMachine.getPanel();
         JButton delete = new JButton("delete");
         JButton recieve = new JButton("receive");
-        JButton previousCalls = new JButton("Show previous calls");
+        JButton block = new JButton("block");
+        JButton previousCalls = new JButton("Show prev");
+        JButton find = new JButton("find number");
+        JLabel lastCall = new JLabel("");
+        lastCall.setHorizontalAlignment(SwingConstants.CENTER);
         ///confirm.setVisible(true);
         panel.add(recieve);
         panel.add(delete);
+        panel.add(block);
         panel.add(previousCalls);
+        panel.add(find);
         window.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent windowClosed) {
                 end();
             }
         });
         window.getContentPane().add(BorderLayout.CENTER, panel);
+        window.getContentPane().add(BorderLayout.SOUTH, lastCall);
         confirm.getContentPane().add(BorderLayout.CENTER, answerPanel);
+        try {
+            lastCall.setText("Last Caller is " + regular.grabCall());
+        } catch (Exception e) {
+            lastCall.setText(e.getMessage());
+        }
         window.setVisible(true);
         recieve.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent buttonPressed) {
             window.setVisible(false);
+            try {
             receive(regular, blocked, scan);
+            } catch(Exception e) {
+                System.out.print(e.getMessage());
+            }
+            window.setVisible(true);
+            try {
+                lastCall.setText("Last Caller is " + regular.grabCall());
+            } catch (Exception e) {
+                lastCall.setText(e.getMessage());
+            }
           }  
         });
         delete.addActionListener(new ActionListener() {
@@ -44,28 +66,67 @@ public class CallDriver {
                 if(regular.size() > 0) {
                 confirm.setVisible(true);
             } else {
-                System.out.print("Error: There are no calls to delete, Call List Empty");
+                System.out.print("There are no calls to delete.");
                 window.setVisible(true);
             }
             }
-        });  
-         previousCalls.addActionListener(new ActionListener() {
+        });
+        block.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent buttonPressed) {
                 window.setVisible(false);
-                if(regular.size() > 0) {
-                System.out.print(showPrevious(regular, scan));
+                try {
+                    blockLastCall(regular, blocked);
+                } catch(Exception e) {
+                    System.out.print(e.getMessage());
+                }
                 window.setVisible(true);
-            } else {
-                System.out.print("Error: There are no calls to show, Call List Empty");
-                window.setVisible(true);
-            }
+                try {
+                    lastCall.setText("Last Caller is " + regular.grabCall());
+                } catch (Exception e) {
+                    lastCall.setText(e.getMessage());
+                }
             }
         });  
+        previousCalls.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent buttonPressed) {
+                window.setVisible(false);
+            try{
+                System.out.print(showPrevious(regular, scan));
+                window.setVisible(true);
+            } catch (Exception e) {
+                System.out.print(e.getMessage());
+                window.setVisible(true);
+            }
+            }
+        }); 
+        find.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent buttonPressed) {
+                window.setVisible(false);
+                try{
+                    System.out.println(findNumber(regular, scan));
+                } catch(Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                window.setVisible(true);
+            }
+        });
         yes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent buttonPressed) {
-             deleteLastCall(regular); 
-             confirm.setVisible(false);
-             window.setVisible(true);
+             try {
+                
+            
+                deleteLastCall(regular); 
+      
+             } catch (Exception e) {
+                System.out.println(e.getMessage());
+             }
+                confirm.setVisible(false);
+                window.setVisible(true);
+                 try {
+                    lastCall.setText("Last Caller is " + regular.grabCall());
+                } catch (Exception e) {
+                    lastCall.setText(e.getMessage());
+                }
             }
         });
         no.addActionListener(new ActionListener() {
@@ -83,7 +144,7 @@ public class CallDriver {
     -Note that the call may be immediately blocked (see option 6). 
     -A caller with the name "Unknown Caller" should automatically be blocked.
     */
-    public static void receive(CallMachine calls, CallMachine block, Scanner scan) {
+    public static void receive(CallMachine calls, CallMachine block, Scanner scan) throws CallException {
          System.out.println("Name:");
             String callerName = scan.nextLine();
             String callerNumber = "";
@@ -91,7 +152,7 @@ public class CallDriver {
                 System.out.print("Number(the 10 digits only):");
                 callerNumber = scan.nextLine();
             }
-            if(block.callExists(callerNumber, callerName)) {return;}
+            if(block.callExists(callerNumber, callerName)) {throw new CallException("This caller is blocked.");}
 
             if(callerName.equals("Unknown Caller")) {
                 block.addCall(callerNumber, callerName);
@@ -106,8 +167,8 @@ public class CallDriver {
     -If so, remove the most recent call from memory. 
     -This should give an error message and not prompt for confirmation if there are no numbers in memory. 
     */
-    public static void deleteLastCall(CallMachine calls) {
-       calls.removeCall();
+    public static void deleteLastCall(CallMachine calls) throws CallException {
+        calls.removeCall();
     }
     /* 
     Show previous calls: 
@@ -118,7 +179,7 @@ public class CallDriver {
         -display all the calls
         -then print the message: “No more calls”. 
     */
-    public static String showPrevious(CallMachine calls, Scanner scan) {
+    public static String showPrevious(CallMachine calls, Scanner scan) throws CallException {
         System.out.print("How many calls? ");
         String callList = calls.getCalls(scan.nextInt());
         return callList;
@@ -141,8 +202,9 @@ public class CallDriver {
     -Do not prompt for a name if the call list is empty. 
     -Name matches should be exact, including spaces, punctuation, and case.
     */
-    public static int findNumber() {
-        return 0;
+    public static String findNumber(CallMachine calls, Scanner scan) throws CallException {
+        System.out.print("What's the name of the caller you're looking for? "); 
+        return calls.findNumber(scan.nextLine());
     }
     /* 
     Block call: 
@@ -156,8 +218,10 @@ public class CallDriver {
     -after executing the block call option, 
     -the list would B, C, A, D, B, A, C with A asdded to the block list. 
     */
-    public static void blockCall() {
-
+    public static void blockLastCall(CallMachine calls, CallMachine block) throws CallException {
+        if(calls.size() < 1) {throw new CallException("There are no calls to block.");}
+        String[] blockedCall = calls.removeCall();
+        block.addCall(blockedCall[0], blockedCall[1]);
     }
     /* 
     Quit the program:
@@ -172,9 +236,9 @@ public class CallDriver {
     public static void startup(CallMachine calls, CallMachine block) {
         calls.addCall("1233234342", "fine");
         calls.addCall("1800666539", "NFT Guy"); 
+        calls.addCall("1800463845", "Evil Corp");
         calls.addCall("1233254342", "fr");
         calls.addCall("1235234342", "dem");
-        calls.addCall("1800463845", "Evil Corp");
         block.addCall("1800463845", "Evil Corp");
         block.addCall("1233294342", "Unknown Caller");
         block.addCall("1800666539", "NFT Guy"); 

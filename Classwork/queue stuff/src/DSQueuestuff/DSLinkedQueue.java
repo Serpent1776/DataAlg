@@ -52,13 +52,10 @@ public class DSLinkedQueue<E> implements DSQueue<E> {
   }
   //work with nodes directly
   public void moveToRear2() {
-    Node<E> f1 = front;
-    while(f1.next != null) { //This is rotate pretty much?
-      E temp = f1.next.data;
-      f1.next.data = f1.data;
-      f1.data = temp;
-      f1 = f1.next;
-    }
+    Node<E> box = new Node<E>(front.data, null);
+    back.next = box;
+    back = box;
+    this.front = front.next;
   }
   //enqueue & dequeue
   public void moveToFront() throws DSQueueException {

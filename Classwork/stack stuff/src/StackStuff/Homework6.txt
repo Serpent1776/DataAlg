@@ -1,5 +1,6 @@
 pg 207 number 8
 the final contents of:
-char x is '+' (because the remove method had a NoSuchElementexception & didn't return any data to x)
-boolean success is false (because the remove method had a NoSuchElementexception)
-queue q is empty (because the uses of the remove method got rid of everything in it.) 
+char x is 'y' (because the second remove was successful and returned 'y' to x)
+boolean success is true (because the last remove was successful and had no error. 
+The first remove did set success as false (by failure) but the second set it as true.)
+queue q has a '(' (because y was added and then removed by the remove at the end of program)
