@@ -326,4 +326,10 @@ Time: O(n^2)*/
             }
             return o;
         }
+        private int lengthRecursive(Node<E> base_ptr) {
+            if(base_ptr == null) {return 0;}
+            int lenRest = lengthRecursive(base_ptr.next;)
+            return lenRest + 1;
+        }
+        
 }

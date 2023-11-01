@@ -76,9 +76,9 @@ public class Driver {
         PizzaHut2.add("g");
         PizzaHut2.add("a");
         //System.out.println(PizzaHut2);
-        PizzaHut2.rotate();
+        PizzaHut2.remove(3);
         //PizzaHut.remove(0);
-        //System.out.println(PizzaHut2);
+        System.out.println(PizzaHut2);
     } catch(Exception e) {
         System.out.println(e);
     }

@@ -11,6 +11,9 @@ public class CallMachine {
         public String toString() {
             return name + ": " + number; 
         }
+        public boolean equals(Call otherCall) {
+            return (number.equals(otherCall.number) && name.equals(otherCall.name));
+        }
 }
     private Call mostRecentCall;
     private int size;
@@ -55,9 +58,25 @@ public class CallMachine {
     public int size() {
         return this.size;
     }
-    public void purge() {
-        
-    }
+    public void purge() throws CallException {
+        if(mostRecentCall == null) {throw new CallException("There are no calls to purge");}
+        Call c1 = mostRecentCall;
+        while (c1 != null && c1.next != null) {
+            if(c1.next.equals(mostRecentCall)) { 
+                //summary: programs conducts teleportation to remove multiple, adajecent dupes at once
+                    Call c2 = c1.next; //the 2nd iterator for teleport location
+                    while (c2.next != null && c2.next.equals(mostRecentCall)) { 
+                    //iterates until null or c2.next isn't equal to mostRecentCall
+                       c2 = c2.next; 
+                    }
+                    Call call = new Call(c1.number, c1.name, c2.next); //new box with teleport location
+                    c1.next = c2.next; //placeholder
+                    c1 = call; //the teleportation and removal 
+                }
+            
+            c1 = c1.next;
+        }    
+        }
     public String getCalls(int k) throws CallException {
          if(mostRecentCall == null) {throw new CallException("There are no calls to show.");}
         String sumString = "";

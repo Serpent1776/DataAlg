@@ -21,6 +21,7 @@ public class CallDriver {
         JButton recieve = new JButton("receive");
         JButton block = new JButton("block");
         JButton previousCalls = new JButton("Show prev");
+        JButton purge = new JButton("purge");
         JButton find = new JButton("find number");
         JLabel lastCall = new JLabel("");
         lastCall.setHorizontalAlignment(SwingConstants.CENTER);
@@ -29,6 +30,7 @@ public class CallDriver {
         panel.add(delete);
         panel.add(block);
         panel.add(previousCalls);
+        panel.add(purge);
         panel.add(find);
         window.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent windowClosed) {
@@ -91,14 +93,24 @@ public class CallDriver {
             public void actionPerformed(ActionEvent buttonPressed) {
                 window.setVisible(false);
             try{
-                System.out.print(showPrevious(regular, scan));
-                window.setVisible(true);
+                System.out.print(showPrevious(regular, scan));     
             } catch (Exception e) {
                 System.out.print(e.getMessage());
-                window.setVisible(true);
             }
+              window.setVisible(true);
             }
         }); 
+        purge.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent buttonPressed) {
+                window.setVisible(false);
+                try {
+                    purgeNumber(regular);
+                } catch (Exception e) {
+                    System.out.print(e.getMessage());
+                }
+                window.setVisible(true);
+            }
+        });
         find.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent buttonPressed) {
                 window.setVisible(false);
@@ -143,6 +155,7 @@ public class CallDriver {
     -Store this data in a way to make further processing as efficient as possible. 
     -Note that the call may be immediately blocked (see option 6). 
     -A caller with the name "Unknown Caller" should automatically be blocked.
+    ON(n)
     */
     public static void receive(CallMachine calls, CallMachine block, Scanner scan) throws CallException {
          System.out.println("Name:");
@@ -165,7 +178,8 @@ public class CallDriver {
     Delete last call: 
     -Prompt the user to make sure they want to do this. //that's in main
     -If so, remove the most recent call from memory. 
-    -This should give an error message and not prompt for confirmation if there are no numbers in memory. 
+    -This should give an error message and not prompt for confirmation if there are no numbers in memory.
+    ON(1) 
     */
     public static void deleteLastCall(CallMachine calls) throws CallException {
         calls.removeCall();
@@ -178,6 +192,7 @@ public class CallDriver {
     -If k is larger than the number of calls in memory: 
         -display all the calls
         -then print the message: “No more calls”. 
+    ON(n)
     */
     public static String showPrevious(CallMachine calls, Scanner scan) throws CallException {
         System.out.print("How many calls? ");
@@ -190,9 +205,10 @@ public class CallDriver {
     -So, for example, if the list were A, B, C, A, D, B, A, C (starting with most recent): 
         -this option would turn the list into A, B, C, D, B, C. 
         -If it were A, B, C, D, B, it would remain as is. There should be no output from this option.
+    ON(n^2)
     */
-    public static void purge() {
-        
+    public static void purgeNumber(CallMachine calls) throws CallException {
+        calls.purge();
     }
     /*  
     Find number: 
@@ -201,6 +217,7 @@ public class CallDriver {
     -print an appropriate response if not. 
     -Do not prompt for a name if the call list is empty. 
     -Name matches should be exact, including spaces, punctuation, and case.
+    ON(n)
     */
     public static String findNumber(CallMachine calls, Scanner scan) throws CallException {
         System.out.print("What's the name of the caller you're looking for? "); 
@@ -216,7 +233,8 @@ public class CallDriver {
     -Blocking a call does not purge the call from the list (as in option 4). 
     -For example, if the list were A, B, C, A, D, B, A, C (starting with most recent), 
     -after executing the block call option, 
-    -the list would B, C, A, D, B, A, C with A asdded to the block list. 
+    -the list would B, C, A, D, B, A, C with A added to the block list. 
+    ON(1), OM(1)
     */
     public static void blockLastCall(CallMachine calls, CallMachine block) throws CallException {
         if(calls.size() < 1) {throw new CallException("There are no calls to block.");}
@@ -234,7 +252,17 @@ public class CallDriver {
      * for testing the code
      */
     public static void startup(CallMachine calls, CallMachine block) {
-        calls.addCall("1233234342", "fine");
+        //calls.addCall("1235234342", "dem");
+        calls.addCall("1235234342", "dem");
+        calls.addCall("1233234542", "fine");
+        calls.addCall("1235234342", "dem");
+        calls.addCall("1233234542", "fine");
+        calls.addCall("1235234342", "dem");
+        calls.addCall("1235234342", "dem");
+        calls.addCall("1235234342", "dem");
+        calls.addCall("1235234342", "dem");
+        calls.addCall("1235234342", "dem");
+        calls.addCall("1235234342", "dem");
         calls.addCall("1800666539", "NFT Guy"); 
         calls.addCall("1800463845", "Evil Corp");
         calls.addCall("1233254342", "fr");
