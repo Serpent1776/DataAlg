@@ -6,7 +6,7 @@ public class CallDriver {
     public static void main(String[] args) throws Exception {
         CallMachine regular = new CallMachine();
         CallMachine blocked = new CallMachine();
-        startup(regular, blocked);
+        //startup(regular, blocked);
         CallWindow callMachine = new CallWindow();
         JFrame window = callMachine.getWindow();
         JFrame confirm = callMachine.getConfirm();
@@ -17,13 +17,15 @@ public class CallDriver {
         answerPanel.add(yes);
         answerPanel.add(no);
         JPanel panel = callMachine.getPanel();
-        JButton delete = new JButton("delete");
-        JButton recieve = new JButton("receive");
-        JButton block = new JButton("block");
-        JButton previousCalls = new JButton("Show prev");
-        JButton purge = new JButton("purge");
-        JButton find = new JButton("find number");
+        JButton delete = new JButton("Delete");
+        JButton recieve = new JButton("Receive");
+        JButton block = new JButton("Block");
+        JButton previousCalls = new JButton("Show Prev");
+        JButton purge = new JButton("Purge");
+        JButton find = new JButton("Find number");
         JLabel lastCall = new JLabel("");
+        JLabel userQuestion = new JLabel("What would you like to do as of now, user?");
+        userQuestion.setHorizontalAlignment(SwingConstants.CENTER);
         lastCall.setHorizontalAlignment(SwingConstants.CENTER);
         ///confirm.setVisible(true);
         panel.add(recieve);
@@ -37,6 +39,7 @@ public class CallDriver {
                 end();
             }
         });
+        window.getContentPane().add(BorderLayout.NORTH, userQuestion);
         window.getContentPane().add(BorderLayout.CENTER, panel);
         window.getContentPane().add(BorderLayout.SOUTH, lastCall);
         confirm.getContentPane().add(BorderLayout.CENTER, answerPanel);
@@ -48,11 +51,11 @@ public class CallDriver {
         window.setVisible(true);
         recieve.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent buttonPressed) {
-            window.setVisible(false);
+            window.setVisible(false); 
             try {
-            receive(regular, blocked, scan);
+            receive(regular, blocked, scan); //prompts the user then adds
             } catch(Exception e) {
-                System.out.print(e.getMessage());
+                System.out.println(e.getMessage());
             }
             window.setVisible(true);
             try {
@@ -65,10 +68,10 @@ public class CallDriver {
         delete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent buttonPressed) {
                 window.setVisible(false);
-                if(regular.size() > 0) {
-                confirm.setVisible(true);
+                if(regular.size() > 0) { //asks to user to confirm deletion when list is not empty
+                confirm.setVisible(true); 
             } else {
-                System.out.print("There are no calls to delete.");
+                System.out.println("There are no calls to delete.");
                 window.setVisible(true);
             }
             }
@@ -77,9 +80,9 @@ public class CallDriver {
             public void actionPerformed(ActionEvent buttonPressed) {
                 window.setVisible(false);
                 try {
-                    blockLastCall(regular, blocked);
+                    blockLastCall(regular, blocked); //blocks the call
                 } catch(Exception e) {
-                    System.out.print(e.getMessage());
+                    System.out.println(e.getMessage());
                 }
                 window.setVisible(true);
                 try {
@@ -93,9 +96,9 @@ public class CallDriver {
             public void actionPerformed(ActionEvent buttonPressed) {
                 window.setVisible(false);
             try{
-                System.out.print(showPrevious(regular, scan));     
+                System.out.print(showPrevious(regular, scan)); //prompts the user for amount of calls  
             } catch (Exception e) {
-                System.out.print(e.getMessage());
+                System.out.println(e.getMessage());
             }
               window.setVisible(true);
             }
@@ -104,9 +107,9 @@ public class CallDriver {
             public void actionPerformed(ActionEvent buttonPressed) {
                 window.setVisible(false);
                 try {
-                    purgeNumber(regular);
+                    purgeNumber(regular); //purges the most recent call's dupes 
                 } catch (Exception e) {
-                    System.out.print(e.getMessage());
+                    System.out.println(e.getMessage());
                 }
                 window.setVisible(true);
             }
@@ -115,7 +118,8 @@ public class CallDriver {
             public void actionPerformed(ActionEvent buttonPressed) {
                 window.setVisible(false);
                 try{
-                    System.out.println(findNumber(regular, scan));
+                    //asks the user for name and then prints the number if it's found
+                    System.out.println(findNumber(regular, scan)); 
                 } catch(Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -125,14 +129,12 @@ public class CallDriver {
         yes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent buttonPressed) {
              try {
-                
-            
+                //if yes button is pressed, delete happens though exception check is there for safety
                 deleteLastCall(regular); 
-      
              } catch (Exception e) {
                 System.out.println(e.getMessage());
              }
-                confirm.setVisible(false);
+                confirm.setVisible(false); //confirm frame dissapears
                 window.setVisible(true);
                  try {
                     lastCall.setText("Last Caller is " + regular.grabCall());
@@ -143,6 +145,7 @@ public class CallDriver {
         });
         no.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent buttonPressed) {
+                //if no, program boots the user back to the standard graphic user interface
               confirm.setVisible(false);
               window.setVisible(true);
             }
@@ -155,14 +158,17 @@ public class CallDriver {
     -Store this data in a way to make further processing as efficient as possible. 
     -Note that the call may be immediately blocked (see option 6). 
     -A caller with the name "Unknown Caller" should automatically be blocked.
-    ON(n)
+    ON(n), OM(n)
     */
     public static void receive(CallMachine calls, CallMachine block, Scanner scan) throws CallException {
-         System.out.println("Name:");
-            String callerName = scan.nextLine();
+            String callerName = "";
+            while(callerName.length() < 1) {   // eat safety protocol 
+                System.out.print("Name: ");
+                callerName = scan.nextLine();
+            }
             String callerNumber = "";
             while(callerNumber.length() != 10) {
-                System.out.print("Number(the 10 digits only):");
+                System.out.print("Number(the 10 digits only): ");
                 callerNumber = scan.nextLine();
             }
             if(block.callExists(callerNumber, callerName)) {throw new CallException("This caller is blocked.");}
@@ -195,8 +201,13 @@ public class CallDriver {
     ON(n)
     */
     public static String showPrevious(CallMachine calls, Scanner scan) throws CallException {
+        String callList = "";
+        int callamount = -1;
+        while(callamount < 0) {
         System.out.print("How many calls? ");
-        String callList = calls.getCalls(scan.nextInt());
+        callamount = scan.nextInt();
+        }
+        callList = calls.getCalls(callamount);
         return callList;
     } 
     /* 
@@ -220,8 +231,12 @@ public class CallDriver {
     ON(n)
     */
     public static String findNumber(CallMachine calls, Scanner scan) throws CallException {
+        String callerName = "";
+        while(callerName.length() < 1) {
         System.out.print("What's the name of the caller you're looking for? "); 
-        return calls.findNumber(scan.nextLine());
+        callerName = scan.nextLine();
+        }
+        return calls.findNumber(callerName);
     }
     /* 
     Block call: 
@@ -252,13 +267,13 @@ public class CallDriver {
      * for testing the code
      */
     public static void startup(CallMachine calls, CallMachine block) {
-        //calls.addCall("1235234342", "dem");
+        calls.addCall("1235234342", "dem");
         calls.addCall("1235234342", "dem");
         calls.addCall("1233234542", "fine");
         calls.addCall("1235234342", "dem");
+        calls.addCall("1235234342", "dem");
+        calls.addCall("1235234342", "dem");
         calls.addCall("1233234542", "fine");
-        calls.addCall("1235234342", "dem");
-        calls.addCall("1235234342", "dem");
         calls.addCall("1235234342", "dem");
         calls.addCall("1235234342", "dem");
         calls.addCall("1235234342", "dem");

@@ -29,6 +29,7 @@ public class CallMachine {
         if(mostRecentCall == null) {throw new CallException("There are no calls to delete.");}
         String[] temps = {mostRecentCall.number, mostRecentCall.name}; 
         mostRecentCall = mostRecentCall.next;
+        size--;
         return temps;
     }
     public String grabCall() throws CallException {
@@ -36,10 +37,11 @@ public class CallMachine {
         return mostRecentCall.toString();
     }
     public String findNumber(String name) throws CallException {
+        if(mostRecentCall == null) {throw new CallException("There are no calls to find.");}
         Call c1 = mostRecentCall;
         while(c1 != null) {
             if(name.equals(c1.name)) {
-                return "Caller " + name + " found. Their number is " + c1.number;
+                return "Caller " + name + " found. Their number is " + c1.number + ".";
             }
             c1 = c1.next;
         }
@@ -59,13 +61,16 @@ public class CallMachine {
         return this.size;
     }
     public void purge() throws CallException {
-        if(mostRecentCall == null) {throw new CallException("There are no calls to purge");}
+        int removeCount = 0;
+        if(this.size < 2) {throw new CallException("There are no calls to purge.");}
         Call c1 = mostRecentCall;
         while (c1 != null && c1.next != null) {
             if(c1.next.equals(mostRecentCall)) { 
+                removeCount++; //removes at least 1 gauranteed
                 //summary: programs conducts teleportation to remove multiple, adajecent dupes at once
                     Call c2 = c1.next; //the 2nd iterator for teleport location
                     while (c2.next != null && c2.next.equals(mostRecentCall)) { 
+                       removeCount++; 
                     //iterates until null or c2.next isn't equal to mostRecentCall
                        c2 = c2.next; 
                     }
@@ -73,9 +78,9 @@ public class CallMachine {
                     c1.next = c2.next; //placeholder
                     c1 = call; //the teleportation and removal 
                 }
-            
             c1 = c1.next;
-        }    
+        }
+        size -= removeCount; 
         }
     public String getCalls(int k) throws CallException {
          if(mostRecentCall == null) {throw new CallException("There are no calls to show.");}
@@ -85,6 +90,8 @@ public class CallMachine {
             if(c1 != null) {
             sumString += c1 + "\n";
             c1 = c1.next;
+            } else {
+            break;
             }
         }
         if(c1 == null) {
