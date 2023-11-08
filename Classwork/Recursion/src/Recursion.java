@@ -58,4 +58,11 @@ public class Recursion {
         int sumRest = sumArr(arr, base + 1);
         return arr[base] + sumRest;
     }
+    public static void solveTowers(int numrings, char start, char scratch, char end) {
+        if(numrings > 0) {
+            solveTowers(numrings - 1, start, end, scratch);
+            System.out.println("Move disk number " + numrings + " from " + start + " to " + end);
+            solveTowers(numrings - 1, scratch, start, end);
+        }
+    }
 }
