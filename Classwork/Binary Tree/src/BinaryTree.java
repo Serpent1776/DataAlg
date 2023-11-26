@@ -1,5 +1,5 @@
 public class BinaryTree<E> {
-    private class Node<E> {
+    protected class Node<E> {
         public E data;
         public Node<E> left;
         public Node<E> right;
@@ -9,8 +9,8 @@ public class BinaryTree<E> {
             this.right = right;
         }
     }
-    private Node<E> root;
-    private int size;
+    protected Node<E> root;
+    protected int size;
     public BinaryTree() {
         this.root = null;
         this.size = 0;
@@ -30,6 +30,7 @@ public class BinaryTree<E> {
     }
     public void add(E data, String LR) {
         this.root = (add(data, LR, this.root));
+        size++;
     }
     private Node<E> add(E data, String directions, Node<E> current) {
         if(directions.equals("")) {
@@ -41,5 +42,13 @@ public class BinaryTree<E> {
             current.right = add(data, directions.substring(1), current.right);
         }
         return current;
+    }
+    public String toString() {
+        return toString(this.root);
+    }
+    public String toString(Node<E> location1) {
+      if(location1 == null) {return "";}
+        String tree = " " + location1.data;
+      return tree + toString(location1.left) + toString(location1.right);
     }
 }
