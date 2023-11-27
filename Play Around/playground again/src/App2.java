@@ -1,7 +1,7 @@
 public class App2 {
     public static void main(String[] args) {
-        String a = "structure";
-        String b = "formed";
+        String a = "into";
+        String b = "lowercase";
         System.out.println(a.compareTo(b));
     }
 }
