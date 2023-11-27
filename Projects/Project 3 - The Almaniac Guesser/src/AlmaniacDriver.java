@@ -8,13 +8,13 @@ public class AlmaniacDriver {
         PrintWriter overwrite = null;
         /**/
         try {
-        File answers = new File("C:\\Users\\Surp\\Documents\\DataAlg\\Projects\\Project 3 - The Almaniac Guesser\\src\\answers.txt");  
+        File answers = new File("answers.txt");  
         Scanner answersAdd = new Scanner(answers);
         if(answersAdd.hasNextLine()) {init(theAlmanic, answersAdd);} else {theAlmanic.add("start", "Is it a zombie?", "");}
         overwrite = new PrintWriter(new FileWriter(answers, false)); 
         } catch (FileNotFoundException e) {
             theAlmanic.add("start", "Is it a zombie?", "");
-            overwrite = new PrintWriter(new FileWriter("answer.txt", false));
+            overwrite = new PrintWriter(new FileWriter("answers.txt", false));
         } 
         overwrite.println(theAlmanic);
         overwrite.close();
