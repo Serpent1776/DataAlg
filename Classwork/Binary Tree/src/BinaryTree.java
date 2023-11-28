@@ -51,4 +51,12 @@ public class BinaryTree<E> {
         String tree = " " + location1.data;
       return tree + toString(location1.left) + toString(location1.right);
     }
+    public int counthelper() {
+        return countRecursive(this.root, 0) - 1;
+    }
+    public int countRecursive(Node<E> pos, int count) {
+        if(pos == null) {return 1;}
+        count++;
+        return countRecursive(pos.left, count) + countRecursive(pos.right, count);
+    }
 }
