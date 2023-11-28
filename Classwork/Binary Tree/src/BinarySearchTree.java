@@ -61,7 +61,7 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> {
     private int count(Node<E> pos, int count) {
         if(pos == null) {return 1;}
         count++;
-        return countRecursive(pos.left, count) + countRecursive(pos.right, count);
+        return count(pos.left, count) + count(pos.right, count);
     }
    
 }

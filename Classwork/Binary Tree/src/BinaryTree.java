@@ -54,7 +54,7 @@ public class BinaryTree<E> {
     public int counthelper() {
         return countRecursive(this.root, 0) - 1;
     }
-    public int countRecursive(Node<E> pos, int count) {
+    protected int countRecursive(Node<E> pos, int count) {
         if(pos == null) {return 1;}
         count++;
         return countRecursive(pos.left, count) + countRecursive(pos.right, count);
