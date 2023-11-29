@@ -42,26 +42,17 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> {
         } else {return current;}
     }
     public int countSmaller(E data) {
-        return countSmallerRecursive(data, this.root, 0) - 1;
+        return countSmallerRecursive(data, this.root, 0);
     }
     private int countSmallerRecursive(E value, Node<E> pos, int count) {
         if(pos == null) {
-            return 1;
+            return 0;
         }
-        if(value.compareTo(pos.data) < 0) {
-            int left = countSmallerRecursive(value, pos.left, count);
-            return left;
-        } else if(value.compareTo(pos.data) > 0) {
+        if(value.compareTo(pos.data) > 0) {
             count++;
-            int left = count(pos.left, count);
-            int right = countSmallerRecursive(value, pos.right, count);
-            return left + right;
-        } else {return 1;}
+        }
+        int left = countSmallerRecursive(value, pos.left, 0);
+        int right = countSmallerRecursive(value, pos.right, 0);
+        return count + left + right;
     }
-    private int count(Node<E> pos, int count) {
-        if(pos == null) {return 1;}
-        count++;
-        return count(pos.left, count) + count(pos.right, count);
-    }
-   
 }

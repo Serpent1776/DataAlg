@@ -52,11 +52,11 @@ public class BinaryTree<E> {
       return tree + toString(location1.left) + toString(location1.right);
     }
     public int counthelper() {
-        return countRecursive(this.root, 0) - 1;
+        return countRecursive(this.root, 0);
     }
-    protected int countRecursive(Node<E> pos, int count) {
-        if(pos == null) {return 1;}
+    private int countRecursive(Node<E> pos, int count) {
+        if(pos == null) {return 0;}
         count++;
-        return countRecursive(pos.left, count) + countRecursive(pos.right, count);
+        return count + countRecursive(pos.left, 0) + countRecursive(pos.right, 0);
     }
 }

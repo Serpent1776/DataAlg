@@ -1,6 +1,6 @@
 
-start=Is it a zombie?=
+start=Is it a plant?=
 Zombie=Does it wear no hat?=L
-Conehead=Is the hat a traffic cone?=LR
+Conehead=Is the hat a traffic cone?=LL
 Peashooter=Does it shoot peas?=R
 Sunflower=Does it generate sun?=RL
