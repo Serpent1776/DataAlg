@@ -6,169 +6,167 @@ import java.util.Scanner;
 public class AlmaniacDriver {
     public static void main(String[] args) throws Exception {
         AlmanicTree theAlmanic = new AlmanicTree();
-        AlmanicWindows window = new AlmanicWindows();
-        String directions = "";
+        AlmanicWindows game = new AlmanicWindows();
         System.out.print(theAlmanic);
         PrintWriter overwrite = null;
         Scanner objectMaker = new Scanner(System.in);
         /**/
         //initialization
-        /*
-         * Play "function"
-         * If yes to a distinguishing question, has a confirmation of an is it.
-         * If no to a distinguishing question, it moves without question to the next question.
-         * If yes on confirmation, it ends play, celebrating.
-         * If no on confrimation, it moves to next question.
-         * If it hits a null pointer, it asks the user and makes a new node, ending play.
-         * During play. it logs the user's answers in the console.
-         */
         try {
-        File answers = new File("answers.txt");  
+        File answers = new File("pVzAnswers.txt");  
         Scanner answersAdd = new Scanner(answers);
-        if(answersAdd.hasNextLine()) {init(theAlmanic, answersAdd);} else {theAlmanic.add("start", "Is it a zombie?", "");}
+        if(answersAdd.hasNextLine()) {init(theAlmanic, answersAdd);} else {enrooten(theAlmanic);}
         overwrite = new PrintWriter(new FileWriter(answers, false)); 
         } catch (FileNotFoundException e) {
-            theAlmanic.add("start", "Is it a plant?", "");
-            overwrite = new PrintWriter(new FileWriter("answers.txt", false));
+            enrooten(theAlmanic);
+            overwrite = new PrintWriter(new FileWriter("pVzAnswers.txt", false));
         } 
         final PrintWriter WRITE = overwrite;
-        window.addWindowListenerTitleMenu(new WindowAdapter() {
+        game.addWindowListenerTitleMenu(new WindowAdapter() {
             public void windowClosed(WindowEvent windowClosed) {
                 theEnd(WRITE, theAlmanic);
             }});
-        window.addWindowListenerQuestionarre(new WindowAdapter() {
+        game.addWindowListenerQuestionarre(new WindowAdapter() {
             public void windowClosed(WindowEvent windowClosed) {
-                window.questionarreVisibletoggle();
-                window.titleVisibletoggle();
+                game.questionarreVisibletoggle();
+                game.titleVisibletoggle();
             }});
-        window.addActionListenerPlay(new ActionListener() {
+        game.addActionListenerPlay(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent buttonPressed) {
-            window.titleVisibletoggle();
-            window.setGameQuestion(theAlmanic.getQuestionHelper(theAlmanic.getPos()));
-            window.setConfirmQuestion("Is it a " + theAlmanic.getNameHelper(theAlmanic.getPos()) + "?");
-            window.questionarreVisibletoggle();
+            try {
+            /*
+             * Play "function"
+             * If yes to a distinguishing question, has a confirmation of an is it. aka qYes
+             * If no to a distinguishing question, it moves without question to the next question. aka qNo
+             * If yes on confirmation, it ends play, celebrating. cYes
+             * If no on confrimation, it moves to next question. cNo
+             * If it hits a null pointer, it asks the user and makes a new node, ending play.
+             * During play. it logs the user's answers in the console, so they make questions easier.
+             */
+            game.titleVisibletoggle();
+            game.setGameQuestion("Think of a plant or zombie: " + theAlmanic.getStrHelper(theAlmanic.getPos()));
+            game.questionarreVisibletoggle();
+             } catch (Exception e) {
+                System.out.print(e);
+            }
         }
        }); 
-       window.addActionListenerEnd(new ActionListener() {
+       game.addActionListenerEnd(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent buttonPressed) { 
             theEnd(WRITE, theAlmanic);
         }
         });
-        window.addActionListenerQYes(new ActionListener() {
+        game.addActionListenerQYes(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent buttonPressed) {
-            if(!theAlmanic.posAtRoot()) {
-            window.questionarreVisibletoggle();
-            window.confirmVisibletoggle();
-            } else {
               try {
+            if(theAlmanic.posAtRoot()) {
+                theAlmanic.setPlant();
+                System.out.println("Start Log");   
+            }
+            game.questionarreVisibletoggle();
+            System.out.println(theAlmanic.getStrHelper(theAlmanic.getPos()) + " Yes");
+            theAlmanic.setPlant();
             theAlmanic.posright();
-            window.setGameQuestion(theAlmanic.getQuestionHelper(theAlmanic.getPos()));
-            window.setConfirmQuestion("Is it a " + theAlmanic.getNameHelper(theAlmanic.getPos()) + "?");
-            yesCase(directions);
+            game.setGameQuestion(theAlmanic.getStrHelper(theAlmanic.getPos()));
+            game.questionarreVisibletoggle();
             } catch(Exception e) {
-                window.questionarreVisibletoggle();
-                System.out.print("You tripped me up! Name for"+ theAlmanic.getPvz() + "?");
-                String name = objectMaker.nextLine();
-                System.out.print("Question that makes this" + theAlmanic.getPvz() + "unique from the others? \n (look above \"End Log\" to help)");
-                String question = objectMaker.nextLine();
-                theAlmanic.add(name, question, directions);
-                theAlmanic.posreset();
-                destroyString(directions);
-                if(theAlmanic.getPoz() == 1) {theAlmanic.togglePoz();}
-                window.titleVisibletoggle();
+                ///System.out.println(e);
+                game.setConfirmQuestion("Is it a " + theAlmanic.getLeafname(theAlmanic.getPos()) + "?");
+                game.confirmVisibletoggle();
             }
             }
             
         }
-       }); 
-        window.addActionListenerQNo(new ActionListener() {
+       ); 
+        game.addActionListenerQNo(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent buttonPressed) {
             try {
-            if(theAlmanic.posAtRoot()) {theAlmanic.togglePoz();}
+            if(theAlmanic.posAtRoot()) {
+                theAlmanic.setZombie();
+                System.out.println("Start Log");   
+            }
+            game.questionarreVisibletoggle();
+            System.out.println(theAlmanic.getStrHelper(theAlmanic.getPos()) + " No");
             theAlmanic.posleft();
-            window.setGameQuestion(theAlmanic.getQuestionHelper(theAlmanic.getPos()));
-            window.setConfirmQuestion("Is it a " + theAlmanic.getNameHelper(theAlmanic.getPos()) + "?");
-            noCase(directions);
+            game.setGameQuestion(theAlmanic.getStrHelper(theAlmanic.getPos()));
+            game.questionarreVisibletoggle();
             } catch(Exception e) {
-                window.questionarreVisibletoggle();
-                System.out.print("You tripped me up! Name for"+ theAlmanic.getPvz() + "?");
-                String name = objectMaker.nextLine();
-                System.out.print("Question that makes this" + theAlmanic.getPvz() + "unique from the others? \n (look above \"End Log\" to help)");
-                String question = objectMaker.nextLine();
-                theAlmanic.add(name, question, directions);
-                theAlmanic.posreset();
-                destroyString(directions);
-                if(theAlmanic.getPoz() == 1) {theAlmanic.togglePoz();}
-                window.titleVisibletoggle();
+                game.setConfirmQuestion("Is it a " + theAlmanic.getLeafname(theAlmanic.getPos()) + "?");
+                game.confirmVisibletoggle();
             }
         }
        }); 
-        window.addActionListenerCYes(new ActionListener() {
+          game.addActionListenerCYes(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent buttonPressed) {
-            //end play
-            window.confirmVisibletoggle();
-            //window.questionarreVisibletoggle();
-            window.titleVisibletoggle();
-        }
-        });
-        window.addActionListenerCNo(new ActionListener() {
+           try {
+            game.confirmVisibletoggle();
+            System.out.println("Is it a " + theAlmanic.getLeafname(theAlmanic.getPos()) + "? Yes!!!");
+            System.out.println("End Log");
+            System.out.println("Yes, I guessed Right!!!\n");
+            theAlmanic.posreset();
+            game.setGameQuestion(theAlmanic.getStrHelper(theAlmanic.getPos()));
+            game.titleVisibletoggle();
+           } catch (Exception e) {
+            System.out.print(e);
+           }
+        }});
+       game.addActionListenerCNo(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent buttonPressed) {
             try {
-            theAlmanic.posright();
-            window.setGameQuestion(theAlmanic.getQuestionHelper(theAlmanic.getPos()));
-            window.setConfirmQuestion("Is it a " + theAlmanic.getNameHelper(theAlmanic.getPos()) + "?");
-            yesCase(directions);
-            window.confirmVisibletoggle();
-            window.questionarreVisibletoggle();
-            } catch(Exception e) {
-                window.confirmVisibletoggle();
-                System.out.print("You tripped me up! Name for"+ theAlmanic.getPvz() + "?");
-                String name = objectMaker.nextLine();
-                System.out.print("Question that makes this" + theAlmanic.getPvz() + "unique from the others? \n (look above \"End Log\" to help)");
-                String question = objectMaker.nextLine();
-                theAlmanic.add(name, question, directions);
-                theAlmanic.posreset();
-                destroyString(directions);
-                if(theAlmanic.getPoz() == 1) {theAlmanic.togglePoz();}
-                window.titleVisibletoggle();
-            }
-        }
-        }); 
-       
-       window.titleVisibletoggle();
+            game.confirmVisibletoggle(); 
+            System.out.println("Is it a " + theAlmanic.getLeafname(theAlmanic.getPos()) + "? Noooo!!");
+            System.out.println("End Log");
+            System.out.print("You tripped me up! Name for "+ theAlmanic.getPvz() + "? ");
+            String name = objectMaker.nextLine();
+            AlmanicEntry newEntry = new AlmanicEntry(name, theAlmanic.getPosDirections() + "R");
+            System.out.print("Question that makes this " + theAlmanic.getPvz() + " unique from the others? \n (look above \"End Log\" to help) \n");
+            String question = objectMaker.nextLine();
+            theAlmanic.add(question, newEntry);
+            theAlmanic.posreset();
+            System.out.println();
+            game.setGameQuestion(theAlmanic.getStrHelper(theAlmanic.getPos()));
+            game.titleVisibletoggle();
+            } catch (Exception e) {
+            System.out.print(e);
+           }
+        }});
+       game.titleVisibletoggle();
     }
     public static void init(AlmanicTree tree, Scanner textFile) {
         while(textFile.hasNextLine()) {
             String entry = textFile.nextLine(); 
-            if(entry == "") {} else {
+            if(entry == "") {} else {   
             String[] yo = entry.split("=");
-            String name = yo[0];
-            String question = yo[1];
+            boolean isLeaf = Boolean.parseBoolean(yo[0]);
+            String str = yo[1];
             try {
             String directions = yo[2];
-            tree.add(name, question, directions);
-            } catch (Exception e) {tree.add(name, question, "");}
+            tree.add(isLeaf, str, directions);
+            if(isLeaf) {
+                AlmanicEntry leaf = new AlmanicEntry(str, directions);
+                tree.addLeaves(leaf);
+            }
+            } catch (Exception e) {tree.add(isLeaf, str, "");
         }
     }
+    tree.posreset();
+    }
+    } /* */
+    public static void enrooten(AlmanicTree theAlmanic) {
+        AlmanicEntry sunFlower = new AlmanicEntry("Sunflower", "R");
+        AlmanicEntry zombie = new AlmanicEntry("Regular Zombie", "L");
+        theAlmanic.root("is it a plant?", zombie, sunFlower);
     }
     public static void theEnd(PrintWriter save, AlmanicTree theAlmanic) {
         save.println(theAlmanic);
         save.close();
         System.exit(0);
     }
-    public static void yesCase(String d) {
-        d += "R";
-    }
-    public static void noCase(String d) {
-        d += "L";
-    }
-    public static void destroyString(String d) {
-        d = "";
-    }
+   
 }

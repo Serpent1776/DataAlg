@@ -5,16 +5,16 @@ import javax.swing.*;
 public class AlmanicWindows {
     JFrame titleMenu;
     JFrame questionarre;
-    JFrame confirm;
+    JFrame confirming;
     boolean titleVisible;
     boolean questionarreVisible;
-    boolean confirmVisible;
+    boolean comfirmVisible;
     JPanel panel;
     JPanel answerPanel;
     JPanel confirmPanel;
     JLabel playquestion;
     JLabel gamequestion;
-    JLabel confirmquestion;
+    JLabel confirmQuestion;
     JButton play;
     JButton end;
     JButton qYes;
@@ -28,26 +28,26 @@ public class AlmanicWindows {
         this.questionarre = new JFrame("Guesser's question");
         questionarre.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         questionarre.setSize(400, 150);
-        this.confirm = new JFrame("confirm?");
-        confirm.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        confirm.setSize(400, 150);
-        this.playquestion = new JLabel("Do you want to play or end this program?");
+        this.confirming = new JFrame("Confirm question");
+        confirming.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        confirming.setSize(400, 150);
+        this.playquestion = new JLabel("Do you want to play or exit the game?");
         this.gamequestion = new JLabel("");
-        this.confirmquestion = new JLabel("");
+        this.confirmQuestion = new JLabel("");
         this.titleVisible = false;
         this.questionarreVisible = false;
-        this.confirmVisible = false;
+        this.comfirmVisible = false;
         this.panel = new JPanel();
         this.answerPanel = new JPanel();
         this.confirmPanel = new JPanel();
         titleMenu.getContentPane().add(panel, BorderLayout.CENTER);
-        questionarre.getContentPane().add(answerPanel, BorderLayout.CENTER);
-        confirm.getContentPane().add(confirmPanel, BorderLayout.CENTER);
         titleMenu.getContentPane().add(playquestion, BorderLayout.NORTH);
+        questionarre.getContentPane().add(answerPanel, BorderLayout.CENTER);
         questionarre.getContentPane().add(gamequestion, BorderLayout.NORTH);
-        confirm.getContentPane().add(confirmquestion, BorderLayout.NORTH);
+        confirming.getContentPane().add(confirmPanel, BorderLayout.CENTER);
+        confirming.getContentPane().add(confirmQuestion, BorderLayout.NORTH);
         play = new JButton("play");
-        end = new JButton("end");
+        end = new JButton("exit");
         panel.add(play);
         panel.add(end);
         qYes = new JButton("yes");
@@ -58,6 +58,7 @@ public class AlmanicWindows {
         cNo = new JButton("no");
         confirmPanel.add(cYes);
         confirmPanel.add(cNo);
+        
     }
     public void titleVisibletoggle() {
         titleVisible = !titleVisible;
@@ -68,8 +69,8 @@ public class AlmanicWindows {
         questionarre.setVisible(questionarreVisible);
     }
     public void confirmVisibletoggle() {
-        confirmVisible = !confirmVisible;
-        confirm.setVisible(confirmVisible);
+        comfirmVisible = !comfirmVisible;
+        confirming.setVisible(comfirmVisible);
     }
     public JFrame getTitleMenu() {
         return this.titleMenu;
@@ -113,7 +114,7 @@ public class AlmanicWindows {
     public void addActionListenerQNo(ActionListener action) {
         qNo.addActionListener(action);
     }
-     public void addActionListenerCYes(ActionListener action) {
+    public void addActionListenerCYes(ActionListener action) {
         cYes.addActionListener(action);
     }
     public void addActionListenerCNo(ActionListener action) {
@@ -129,6 +130,6 @@ public class AlmanicWindows {
         gamequestion.setText(question);
     }
     public void setConfirmQuestion(String question) {
-        confirmquestion.setText(question);
+        confirmQuestion.setText(question);
     }
 }
