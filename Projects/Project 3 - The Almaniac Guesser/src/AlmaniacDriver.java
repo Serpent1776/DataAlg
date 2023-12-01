@@ -37,12 +37,14 @@ public class AlmaniacDriver {
             try {
             /*
              * Play "function"
-             * If yes to a distinguishing question, has a confirmation of an is it. aka qYes
-             * If no to a distinguishing question, it moves without question to the next question. aka qNo
-             * If yes on confirmation, it ends play, celebrating. cYes
-             * If no on confrimation, it moves to next question. cNo
-             * If it hits a null pointer, it asks the user and makes a new node, ending play.
-             * During play. it logs the user's answers in the console, so they make questions easier.
+             * If yes to a distinguishing question, it moves right to the next until it hits a leaf. aka qYes
+             * If no to a distinguishing question, it moves left to the next question until it hits a leaf. aka qNo
+             * A Confirmation window pops up when this happens.
+             * If yes on confirmation, it ends play, celebrating. aka cYes
+             * If no on confrimation, it has the user make a new leaf for the tree by asking for a name
+             * and a question that makes it unique. aka cNo
+             * During play. it logs the user's answers in the console, so they make questions easier 
+             * (including the confirmation question).
              */
             game.titleVisibletoggle();
             game.setGameQuestion("Think of a plant or zombie: " + theAlmanic.getStrHelper(theAlmanic.getPos()));
