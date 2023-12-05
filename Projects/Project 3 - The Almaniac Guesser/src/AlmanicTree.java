@@ -1,7 +1,3 @@
-/*
- * 
- * Questions until it hits a leaf.
- */
 import java.util.ArrayList;
 public class AlmanicTree {
     private class leaf {
@@ -9,7 +5,9 @@ public class AlmanicTree {
         public String directions;
         public leaf left;
         public leaf right;
-        public boolean isLeaf;
+        public boolean isLeaf; //is used to make the tree from a file more easily 
+        //and to create the alamanicEntry objects
+        //makes a subtree with a question associated
         public leaf(String question, String directions, leaf left, leaf right) {
             this.str = question;
             this.directions = directions;
@@ -17,6 +15,7 @@ public class AlmanicTree {
             this.right = right;
             this.isLeaf = false;
         }
+        //makes a leaf
         public leaf(AlmanicEntry entry) {
             this.str = entry.getName();
             this.directions = entry.getDirections();
@@ -31,16 +30,17 @@ public class AlmanicTree {
             this.directions = directions;
         }
         public String toString() {
-            return isLeaf + "=" + str + "=" + directions;
+            return isLeaf + "=" + str + "=" + directions; //the format (leaf boolean)=(str)=(directions)
         }
     }
     leaf root;
-    leaf pos;
+    leaf pos; //node iterator
     //int poz;
-    String pvz;
+    String pvz; //changes the text at the make new element ending of the game to either plant or zombie 
+    //by the functions setPlant() and setZombie()
     int size;
-    String posDirections;
-    ArrayList<AlmanicEntry> leaves;
+    String posDirections; //node iterator's current directions
+    ArrayList<AlmanicEntry> leaves; //just an arraylist used for the leaves to make them easy to find during play.
     public AlmanicTree() {
         this.root = null;
         this.size = 0;
@@ -50,9 +50,6 @@ public class AlmanicTree {
         leaves = new ArrayList<AlmanicEntry>();
     }
     
-    public String toString() {
-        return toString(this.root);
-    }
     public leaf getRoot() {
         return root;
     }
@@ -98,7 +95,8 @@ public class AlmanicTree {
         }
         return current;
     }
-    public void root(String separatingQuestion, AlmanicEntry entry1, AlmanicEntry entry2) {
+    //enRoot() makes the mini tree to start the game
+    public void enRoot(String separatingQuestion, AlmanicEntry entry1, AlmanicEntry entry2) { 
         this.root = new leaf(separatingQuestion, "", new leaf(entry1), new leaf(entry2));
         this.pos = this.root;
     }
@@ -119,24 +117,33 @@ public class AlmanicTree {
     public leaf getPos() {
         return pos;
     }
+    //getStrHelper(leaf l) gets the str at leaf, is a placeholder function for the game so it can check for leaves
     public String getStrHelper(leaf l) throws GuessingTreeException {
         if(l.left == null && l.right == null) {throw new GuessingTreeException("this is leaf.");}
         return l.str;
     }
+    //getLeafname(leaf l) is used when the program hits a leaf
     public String getLeafname(leaf l) {
         return l.str;
     }
+    //posAtRoot() equals check to make sure that pos is at the root
     public boolean posAtRoot() {
        return this.pos.equals(this.root);
     }
+    //toString just a helper for the recursive version
+     public String toString() {
+        return toString(this.root);
+    }
+    //recursive version that actually makes the class' string
     public String toString(leaf l) {
       if(l == null) {return "";}
-        String tree = "\n" + l;
-      return tree + toString(l.left) + toString(l.right);
+        String tree = "\n" + l; //l gets toStringed here with format found in the leaf class' toString()
+      return tree + toString(l.left) + toString(l.right); //toString() is done with recursion
     }
     public void setPlant() {
         this.pvz = "plant";
     }
+    
     public void setZombie() {
         this.pvz = "zombie";
     }

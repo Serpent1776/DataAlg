@@ -2,4 +2,3 @@
 false=is it a plant?=
 true=Regular Zombie=L
 true=Sunflower=R
-

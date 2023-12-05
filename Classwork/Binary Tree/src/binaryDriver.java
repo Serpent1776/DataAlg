@@ -15,7 +15,7 @@ public class binaryDriver {
         Bintree.add("us");
         Bintree.add("ru");
         System.out.println(Bintree.counthelper());
-        System.out.println(Bintree.countSmaller("z"));
+        System.out.println(Bintree.countSmaller("us"));
         /*1. Write a method called count that is part of the BinaryTree<E> class that
          returns the number of nodes in the tree (without returning numElt or numberOfElements;
          calculate it by going through the tree). You'll want to write a countRecursive helper method

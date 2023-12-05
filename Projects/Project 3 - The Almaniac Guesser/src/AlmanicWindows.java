@@ -5,7 +5,7 @@ import javax.swing.*;
 public class AlmanicWindows {
     JFrame titleMenu;
     JFrame questionarre;
-    JFrame confirming;
+    JFrame confirmWindow;
     boolean titleVisible;
     boolean questionarreVisible;
     boolean comfirmVisible;
@@ -28,9 +28,9 @@ public class AlmanicWindows {
         this.questionarre = new JFrame("Guesser's question");
         questionarre.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         questionarre.setSize(400, 150);
-        this.confirming = new JFrame("Confirm question");
-        confirming.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        confirming.setSize(400, 150);
+        this.confirmWindow = new JFrame("Confirm question");
+        confirmWindow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        confirmWindow.setSize(400, 150);
         this.playquestion = new JLabel("Do you want to play or exit the game?");
         this.gamequestion = new JLabel("");
         this.confirmQuestion = new JLabel("");
@@ -44,8 +44,8 @@ public class AlmanicWindows {
         titleMenu.getContentPane().add(playquestion, BorderLayout.NORTH);
         questionarre.getContentPane().add(answerPanel, BorderLayout.CENTER);
         questionarre.getContentPane().add(gamequestion, BorderLayout.NORTH);
-        confirming.getContentPane().add(confirmPanel, BorderLayout.CENTER);
-        confirming.getContentPane().add(confirmQuestion, BorderLayout.NORTH);
+        confirmWindow.getContentPane().add(confirmPanel, BorderLayout.CENTER);
+        confirmWindow.getContentPane().add(confirmQuestion, BorderLayout.NORTH);
         play = new JButton("play");
         end = new JButton("exit");
         panel.add(play);
@@ -60,7 +60,10 @@ public class AlmanicWindows {
         confirmPanel.add(cNo);
         
     }
-    public void titleVisibletoggle() {
+    /* all toggles open and close the window without the need of a boolean, move conveinent for the game.
+     * functionally a t-flipflop
+     */
+    public void titleVisibletoggle() { 
         titleVisible = !titleVisible;
         titleMenu.setVisible(titleVisible);
     }
@@ -70,7 +73,7 @@ public class AlmanicWindows {
     }
     public void confirmVisibletoggle() {
         comfirmVisible = !comfirmVisible;
-        confirming.setVisible(comfirmVisible);
+        confirmWindow.setVisible(comfirmVisible);
     }
     public JFrame getTitleMenu() {
         return this.titleMenu;
@@ -96,11 +99,17 @@ public class AlmanicWindows {
     public JButton getEnd() {
         return end;
     }
-    public JButton getYes() {
+    public JButton getqYes() {
         return qYes;
     }
-    public JButton getNo() {
+    public JButton getqNo() {
         return qNo;
+    }
+    public JButton getcYes() {
+        return cYes;
+    }
+    public JButton getcNo() {
+        return cNo;
     }
     public void addActionListenerPlay(ActionListener action) {
         play.addActionListener(action);
@@ -125,6 +134,9 @@ public class AlmanicWindows {
     }
     public void addWindowListenerQuestionarre(WindowAdapter action) {
         questionarre.addWindowListener(action);
+    }
+     public void addWindowListenerConfirm(WindowAdapter action) {
+        confirmWindow.addWindowListener(action);
     }
     public void setGameQuestion(String question) {
         gamequestion.setText(question);

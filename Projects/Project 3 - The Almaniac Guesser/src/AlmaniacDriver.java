@@ -5,11 +5,11 @@ import java.util.Scanner;
 //import javax.swing.*;
 public class AlmaniacDriver {
     public static void main(String[] args) throws Exception {
-        AlmanicTree theAlmanic = new AlmanicTree();
-        AlmanicWindows game = new AlmanicWindows();
+        AlmanicTree theAlmanic = new AlmanicTree(); //tree for the guessing game
+        AlmanicWindows game = new AlmanicWindows(); 
         System.out.print(theAlmanic);
         PrintWriter overwrite = null;
-        Scanner objectMaker = new Scanner(System.in);
+        Scanner leafMaker = new Scanner(System.in); //makes the new leaf at the make the element ending
         /**/
         //initialization
         try {
@@ -29,8 +29,17 @@ public class AlmaniacDriver {
         game.addWindowListenerQuestionarre(new WindowAdapter() {
             public void windowClosed(WindowEvent windowClosed) {
                 game.questionarreVisibletoggle();
+                theAlmanic.posreset();
+                System.out.println("End Log");
                 game.titleVisibletoggle();
             }});
+        game.addWindowListenerConfirm(new WindowAdapter() {
+            public void windowClosed(WindowEvent windowClosed) {
+                game.confirmVisibletoggle();
+                theAlmanic.posreset();
+                System.out.println("End Log");
+                game.titleVisibletoggle();
+            }});    
         game.addActionListenerPlay(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent buttonPressed) {
@@ -48,6 +57,7 @@ public class AlmaniacDriver {
              */
             game.titleVisibletoggle();
             game.setGameQuestion("Think of a plant or zombie: " + theAlmanic.getStrHelper(theAlmanic.getPos()));
+            System.out.println("Start Log"); 
             game.questionarreVisibletoggle();
              } catch (Exception e) {
                 System.out.print(e);
@@ -65,8 +75,7 @@ public class AlmaniacDriver {
         public void actionPerformed(ActionEvent buttonPressed) {
               try {
             if(theAlmanic.posAtRoot()) {
-                theAlmanic.setPlant();
-                System.out.println("Start Log");   
+                theAlmanic.setPlant(); //sets the string at the make a new element ending to be "plant"   
             }
             game.questionarreVisibletoggle();
             System.out.println(theAlmanic.getStrHelper(theAlmanic.getPos()) + " Yes");
@@ -74,7 +83,7 @@ public class AlmaniacDriver {
             theAlmanic.posright();
             game.setGameQuestion(theAlmanic.getStrHelper(theAlmanic.getPos()));
             game.questionarreVisibletoggle();
-            } catch(Exception e) {
+            } catch(Exception e) { //below shows what happens when it hits a leaf
                 ///System.out.println(e);
                 game.setConfirmQuestion("Is it a " + theAlmanic.getLeafname(theAlmanic.getPos()) + "?");
                 game.confirmVisibletoggle();
@@ -88,24 +97,24 @@ public class AlmaniacDriver {
         public void actionPerformed(ActionEvent buttonPressed) {
             try {
             if(theAlmanic.posAtRoot()) {
-                theAlmanic.setZombie();
-                System.out.println("Start Log");   
+                theAlmanic.setZombie(); //sets the string at the make a new element ending to be "zombie"
             }
             game.questionarreVisibletoggle();
             System.out.println(theAlmanic.getStrHelper(theAlmanic.getPos()) + " No");
             theAlmanic.posleft();
             game.setGameQuestion(theAlmanic.getStrHelper(theAlmanic.getPos()));
             game.questionarreVisibletoggle();
-            } catch(Exception e) {
+            } catch(Exception e) { //below shows what happens when it hits a leaf
                 game.setConfirmQuestion("Is it a " + theAlmanic.getLeafname(theAlmanic.getPos()) + "?");
                 game.confirmVisibletoggle();
             }
         }
        }); 
+       //Confirmation window buttion
           game.addActionListenerCYes(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent buttonPressed) {
-           try {
+           try { //no make new element ending
             game.confirmVisibletoggle();
             System.out.println("Is it a " + theAlmanic.getLeafname(theAlmanic.getPos()) + "? Yes!!!");
             System.out.println("End Log");
@@ -120,15 +129,15 @@ public class AlmaniacDriver {
        game.addActionListenerCNo(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent buttonPressed) {
-            try {
+            try { //make a new element ending
             game.confirmVisibletoggle(); 
             System.out.println("Is it a " + theAlmanic.getLeafname(theAlmanic.getPos()) + "? Noooo!!");
             System.out.println("End Log");
             System.out.print("You tripped me up! Name for "+ theAlmanic.getPvz() + "? ");
-            String name = objectMaker.nextLine();
+            String name = leafMaker.nextLine();
             AlmanicEntry newEntry = new AlmanicEntry(name, theAlmanic.getPosDirections() + "R");
-            System.out.print("Question that makes this " + theAlmanic.getPvz() + " unique from the others? \n (look above \"End Log\" to help) \n");
-            String question = objectMaker.nextLine();
+            System.out.print("Question that makes this " + theAlmanic.getPvz() + " unique from the others? \n (look \"End Log\" to help) \n");
+            String question = leafMaker.nextLine();
             theAlmanic.add(question, newEntry);
             theAlmanic.posreset();
             System.out.println();
@@ -140,6 +149,9 @@ public class AlmaniacDriver {
         }});
        game.titleVisibletoggle();
     }
+    /* initalizes the program if file content is there and saved. does equal standard variable 
+     * the format: (leaf boolean)=(str)=(directions)
+    */
     public static void init(AlmanicTree tree, Scanner textFile) {
         while(textFile.hasNextLine()) {
             String entry = textFile.nextLine(); 
@@ -159,11 +171,14 @@ public class AlmaniacDriver {
     }
     tree.posreset();
     }
-    } /* */
+    } 
+    /* 
+     * Pretty much makes a small tree to start to program if there is no file
+     */
     public static void enrooten(AlmanicTree theAlmanic) {
         AlmanicEntry sunFlower = new AlmanicEntry("Sunflower", "R");
         AlmanicEntry zombie = new AlmanicEntry("Regular Zombie", "L");
-        theAlmanic.root("is it a plant?", zombie, sunFlower);
+        theAlmanic.enRoot("is it a plant?", zombie, sunFlower);
     }
     public static void theEnd(PrintWriter save, AlmanicTree theAlmanic) {
         save.println(theAlmanic);
