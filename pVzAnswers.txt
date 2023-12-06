@@ -1,4 +1,22 @@
 
 false=is it a plant?=
-true=Regular Zombie=L
-true=Sunflower=R
+false=Does it wear a cone?=L
+false=Does it wear a bucket?=LL
+false=Does it use screen door for protection?=LLL
+false=Does it look very strong?=LLLL
+true=Regular Zombie=LLLLL
+true=Gargantuar=LLLLR
+true=Screen Door Zombie=LLLR
+true=Bucket head=LLR
+true=Conehead=LR
+false=Does it shoot peas?=R
+false=Does it give two sun at once?=RL
+true=Sunflower=RLL
+true=Twin Sunflower=RLR
+false=Does it shoot two peas at once?=RR
+false=Does it shoot four peas at once?=RRL
+true=Peashooter=RRLL
+true=Pea Gatling=RRLR
+false=Does it shoot from the front and back?=RRR
+true=Repeater=RRRL
+true=Split Pea=RRRR
