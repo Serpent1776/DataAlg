@@ -176,8 +176,8 @@ public class AlmaniacDriver {
      * Pretty much makes a small tree to start to program if there is no file
      */
     public static void enrooten(AlmanicTree theAlmanic) {
-        AlmanicEntry sunFlower = new AlmanicEntry("Sunflower", "P");
-        AlmanicEntry zombie = new AlmanicEntry("Browncoat", "Z");
+        AlmanicEntry sunFlower = new AlmanicEntry("Sunflower", "Y");
+        AlmanicEntry zombie = new AlmanicEntry("Browncoat", "N");
         theAlmanic.enRoot("Is it a plant?", zombie, sunFlower);
     }
     public static void theEnd(PrintWriter save, AlmanicTree theAlmanic) {
