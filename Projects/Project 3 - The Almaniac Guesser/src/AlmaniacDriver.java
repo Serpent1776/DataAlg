@@ -84,7 +84,7 @@ public class AlmaniacDriver {
             game.setGameQuestion(theAlmanic.getStrHelper(theAlmanic.getPos()));
             game.questionarreVisibletoggle();
             } catch(Exception e) { //below shows what happens when it hits a leaf
-                ///System.out.println(e);
+                //System.out.println(e);
                 game.setConfirmQuestion("Is it a " + theAlmanic.getLeafname(theAlmanic.getPos()) + "?");
                 game.confirmVisibletoggle();
             }
@@ -135,7 +135,7 @@ public class AlmaniacDriver {
             System.out.println("End Log");
             System.out.print("You tripped me up! Name for "+ theAlmanic.getPvz() + "? ");
             String name = leafMaker.nextLine();
-            AlmanicEntry newEntry = new AlmanicEntry(name, theAlmanic.getPosDirections() + "R");
+            AlmanicEntry newEntry = new AlmanicEntry(name, theAlmanic.getPosDirections() + "Y");
             System.out.print("Question that makes this " + theAlmanic.getPvz() + " unique from the others? \n (look \"End Log\" to help) \n");
             String question = leafMaker.nextLine();
             theAlmanic.add(question, newEntry);
@@ -155,7 +155,7 @@ public class AlmaniacDriver {
     public static void init(AlmanicTree tree, Scanner textFile) {
         while(textFile.hasNextLine()) {
             String entry = textFile.nextLine(); 
-            if(entry == "") {} else {   
+            if(entry == "") {} else {       
             String[] yo = entry.split("=");
             boolean isLeaf = Boolean.parseBoolean(yo[0]);
             String str = yo[1];
@@ -176,12 +176,12 @@ public class AlmaniacDriver {
      * Pretty much makes a small tree to start to program if there is no file
      */
     public static void enrooten(AlmanicTree theAlmanic) {
-        AlmanicEntry sunFlower = new AlmanicEntry("Sunflower", "R");
-        AlmanicEntry zombie = new AlmanicEntry("Regular Zombie", "L");
-        theAlmanic.enRoot("is it a plant?", zombie, sunFlower);
+        AlmanicEntry sunFlower = new AlmanicEntry("Sunflower", "P");
+        AlmanicEntry zombie = new AlmanicEntry("Browncoat", "Z");
+        theAlmanic.enRoot("Is it a plant?", zombie, sunFlower);
     }
     public static void theEnd(PrintWriter save, AlmanicTree theAlmanic) {
-        save.println(theAlmanic);
+        save.print(theAlmanic);
         save.close();
         System.exit(0);
     }

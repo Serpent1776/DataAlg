@@ -74,12 +74,12 @@ public class AlmanicTree {
     private leaf add(String question, AlmanicEntry entry, String directions, leaf current) {
         if(directions.equals("")) {
             leaf ent = new leaf(entry);
-            current.directions += "L";
+            current.directions += "N";
             return new leaf(question, posDirections, current, ent);
         }
-        if(directions.charAt(0) == 'L' && current != null) {
+        if(directions.charAt(0) == 'N' && current != null) {
             current.left = add(question, entry, directions.substring(1), current.left);
-        } else if (directions.charAt(0) == 'R' && current != null) {
+        } else if (directions.charAt(0) == 'Y' && current != null) {
             current.right = add(question, entry, directions.substring(1), current.right);
         }
         return current;
@@ -88,9 +88,9 @@ public class AlmanicTree {
          if(directions.equals("")) {
             return new leaf(isLeaf, question, direction);
          }
-         if(directions.charAt(0) == 'L' && current != null) {
+         if(directions.charAt(0) == 'N' && current != null) {
             current.left = add(isLeaf, question, directions.substring(1), direction, current.left);
-        } else if (directions.charAt(0) == 'R' && current != null) {
+        } else if (directions.charAt(0) == 'Y' && current != null) {
             current.right = add(isLeaf, question, directions.substring(1), direction, current.right);
         }
         return current;
@@ -103,12 +103,12 @@ public class AlmanicTree {
     public void posright() throws GuessingTreeException {
         if(this.pos == null) {throw new GuessingTreeException("null pos");}
         this.pos = this.pos.right;
-        this.posDirections += "R";
+        this.posDirections += "Y";
     }
     public void posleft() throws GuessingTreeException {
         if(this.pos == null) {throw new GuessingTreeException("null pos");}
         this.pos = this.pos.left;
-        this.posDirections += "L";
+        this.posDirections += "N";
     }
     public void posreset() {
         this.pos = this.root;
@@ -119,7 +119,7 @@ public class AlmanicTree {
     }
     //getStrHelper(leaf l) gets the str at leaf, is a placeholder function for the game so it can check for leaves
     public String getStrHelper(leaf l) throws GuessingTreeException {
-        if(l.left == null && l.right == null) {throw new GuessingTreeException("this is leaf.");}
+        if(l.left == null && l.right == null) {throw new GuessingTreeException("this is a leaf.");}
         return l.str;
     }
     //getLeafname(leaf l) is used when the program hits a leaf
@@ -137,7 +137,7 @@ public class AlmanicTree {
     //recursive version that actually makes the class' string
     public String toString(leaf l) {
       if(l == null) {return "";}
-        String tree = "\n" + l; //l gets toStringed here with format found in the leaf class' toString()
+        String tree = l + "\n"; //l gets toStringed here with format found in the leaf class' toString()
       return tree + toString(l.left) + toString(l.right); //toString() is done with recursion
     }
     public void setPlant() {
