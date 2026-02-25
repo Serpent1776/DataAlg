@@ -1,0 +1,3 @@
+false=Is it a plant?=
+true=Browncoat=N
+true=Sunflower=Y

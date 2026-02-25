@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import javax.swing.*;
@@ -21,7 +22,9 @@ public class AlmanicWindows {
     JButton qNo;
     JButton cYes;
     JButton cNo;
-    public AlmanicWindows() {
+    JButton search;
+    SearchGUI searchGUI;
+    public AlmanicWindows(AlmanicTree tree) {
         this.titleMenu = new JFrame("Almanicguesser");
         this.titleMenu.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); 
         this.titleMenu.setSize(400, 150);
@@ -58,7 +61,15 @@ public class AlmanicWindows {
         cNo = new JButton("no");
         confirmPanel.add(cYes);
         confirmPanel.add(cNo);
-        
+        search = new JButton("search");
+        searchGUI = new SearchGUI(tree);
+        search.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openSearch();
+            }
+        });
+        panel.add(search, BorderLayout.SOUTH);
     }
     /* all toggles open and close the window without the need of a boolean, move conveinent for the game.
      * functionally a t-flipflop
@@ -143,5 +154,8 @@ public class AlmanicWindows {
     }
     public void setConfirmQuestion(String question) {
         confirmQuestion.setText(question);
+    }
+    public void openSearch() {
+        searchGUI.open();
     }
 }

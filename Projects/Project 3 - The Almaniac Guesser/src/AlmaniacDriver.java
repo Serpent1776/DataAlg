@@ -6,14 +6,14 @@ import java.util.Scanner;
 public class AlmaniacDriver {
     public static void main(String[] args) throws Exception {
         AlmanicTree theAlmanic = new AlmanicTree(); //tree for the guessing game
-        AlmanicWindows game = new AlmanicWindows(); 
+        AlmanicWindows game = new AlmanicWindows(theAlmanic); 
         System.out.print(theAlmanic);
         PrintWriter overwrite = null;
         Scanner leafMaker = new Scanner(System.in); //makes the new leaf at the make the element ending
         /**/
         //initialization
         try {
-        File answers = new File("pVzAnswers.txt");  
+        File answers = new File("Projects\\Project 3 - The Almaniac Guesser\\src\\pVzAnswers.txt");  
         Scanner answersAdd = new Scanner(answers);
         if(answersAdd.hasNextLine()) {init(theAlmanic, answersAdd);} else {enrooten(theAlmanic);}
         overwrite = new PrintWriter(new FileWriter(answers, false)); 
